@@ -74,7 +74,7 @@ healtAIProject/
 ### V3 — May 7, 2026 · Final Submission
 - [x] All features complete and tested
 - [x] User Guide written
-- [ ] Demo video recorded (max 5 min)
+- [x] Demo video recorded (max 5 min)
 
 ---
 
