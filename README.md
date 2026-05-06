@@ -62,15 +62,18 @@ healtAIProject/
 - [x] Admin Panel + Profile & GDPR page
 - [x] SRS_V1 document
 
-### V2 — April 30, 2026 · Full Stack Integration + SDD
-- [ ] Express API endpoints live
-- [ ] PostgreSQL database connected
-- [x] Frontend switches from mock API to real API
-- [ ] SDD_V1 document
+### ✅ V2 — April 30, 2026 · Full Stack Integration + SDD
+- [x] Express API endpoints live
+- [x] PostgreSQL database connected
+- [x] Frontend switches from mock API to real API (VITE_USE_MOCK)
+- [x] Docker Compose deployment (4 services)
+- [x] SDD_V1 document
+- [x] SRS_V2 document
+- [x] SDD_V2 document
 
 ### V3 — May 7, 2026 · Final Submission
-- [ ] All features complete and tested
-- [ ] User Guide written
+- [x] All features complete and tested
+- [x] User Guide written
 - [ ] Demo video recorded (max 5 min)
 
 ---
