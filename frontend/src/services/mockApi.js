@@ -100,12 +100,24 @@ export const SEED_MEETINGS = [
 ];
 
 export const SEED_LOGS = [
-  { id: 1, userId: 1, userName: 'Dogukan Ogan', role: 'engineer', action: 'login',           target: '-',         result: 'success', timestamp: '2026-04-09 09:00' },
-  { id: 2, userId: 1, userName: 'Dogukan Ogan', role: 'engineer', action: 'post_create',     target: 'Post #1',   result: 'success', timestamp: '2026-04-09 09:15' },
-  { id: 3, userId: 2, userName: 'Dr. Ayse Kaya', role: 'healthcare', action: 'login',        target: '-',         result: 'success', timestamp: '2026-04-09 09:30' },
-  { id: 4, userId: 2, userName: 'Dr. Ayse Kaya', role: 'healthcare', action: 'meeting_request', target: 'Post #3', result: 'success', timestamp: '2026-04-09 09:45' },
-  { id: 5, userId: 4, userName: 'Mehmet Demir', role: 'engineer', action: 'login',           target: '-',         result: 'failed',  timestamp: '2026-04-09 10:00' },
-  { id: 6, userId: 3, userName: 'Admin User',   role: 'admin',    action: 'post_remove',     target: 'Post #4',   result: 'success', timestamp: '2026-04-09 10:15' },
+  { id:  1, userId: 1, userName: 'Dogukan Ogan',    role: 'engineer',    action: 'login',            target: '-',         result: 'success', timestamp: '2026-04-09 08:55' },
+  { id:  2, userId: 1, userName: 'Dogukan Ogan',    role: 'engineer',    action: 'post_create',      target: 'Post #1',   result: 'success', timestamp: '2026-04-09 09:00' },
+  { id:  3, userId: 1, userName: 'Dogukan Ogan',    role: 'engineer',    action: 'post_create',      target: 'Post #3',   result: 'success', timestamp: '2026-04-09 09:10' },
+  { id:  4, userId: 2, userName: 'Dr. Ayse Kaya',  role: 'healthcare',  action: 'login',            target: '-',         result: 'success', timestamp: '2026-04-09 09:20' },
+  { id:  5, userId: 2, userName: 'Dr. Ayse Kaya',  role: 'healthcare',  action: 'post_create',      target: 'Post #2',   result: 'success', timestamp: '2026-04-09 09:25' },
+  { id:  6, userId: 2, userName: 'Dr. Ayse Kaya',  role: 'healthcare',  action: 'meeting_request',  target: 'Post #3',   result: 'success', timestamp: '2026-04-09 09:45' },
+  { id:  7, userId: 1, userName: 'Dogukan Ogan',    role: 'engineer',    action: 'meeting_response', target: 'Meeting #1',result: 'success', timestamp: '2026-04-09 10:00' },
+  { id:  8, userId: 4, userName: 'Mehmet Demir',   role: 'engineer',    action: 'login',            target: '-',         result: 'failed',  timestamp: '2026-04-09 10:05' },
+  { id:  9, userId: 4, userName: 'Mehmet Demir',   role: 'engineer',    action: 'login',            target: '-',         result: 'failed',  timestamp: '2026-04-09 10:06' },
+  { id: 10, userId: 5, userName: 'Dr. Fatma Yilmaz',role:'healthcare',  action: 'login',            target: '-',         result: 'success', timestamp: '2026-04-09 10:20' },
+  { id: 11, userId: 5, userName: 'Dr. Fatma Yilmaz',role:'healthcare',  action: 'post_create',      target: 'Post #4',   result: 'success', timestamp: '2026-04-09 10:25' },
+  { id: 12, userId: 3, userName: 'Admin User',      role: 'admin',       action: 'login',            target: '-',         result: 'success', timestamp: '2026-04-09 10:30' },
+  { id: 13, userId: 3, userName: 'Admin User',      role: 'admin',       action: 'post_remove',      target: 'Post #4',   result: 'success', timestamp: '2026-04-09 10:35' },
+  { id: 14, userId: 3, userName: 'Admin User',      role: 'admin',       action: 'suspend_user',     target: 'User #4',   result: 'success', timestamp: '2026-04-09 10:40' },
+  { id: 15, userId: 2, userName: 'Dr. Ayse Kaya',  role: 'healthcare',  action: 'post_create',      target: 'Post #5',   result: 'success', timestamp: '2026-04-09 11:00' },
+  { id: 16, userId: 1, userName: 'Dogukan Ogan',    role: 'engineer',    action: 'post_update',      target: 'Post #1',   result: 'success', timestamp: '2026-04-09 11:15' },
+  { id: 17, userId: 1, userName: 'Dogukan Ogan',    role: 'engineer',    action: 'login',            target: '-',         result: 'success', timestamp: '2026-04-09 12:00' },
+  { id: 18, userId: 2, userName: 'Dr. Ayse Kaya',  role: 'healthcare',  action: 'data_export',      target: '-',         result: 'success', timestamp: '2026-04-09 12:30' },
 ];
 
 // ── Auth ───────────────────────────────────────────────────────────────────
@@ -200,9 +212,13 @@ export const meetingsApi = {
     return newMeeting;
   },
 
-  respond: async (id, action) => {
+  respond: async (id, action, confirmedSlot) => {
     await delay();
-    meetingsStore = meetingsStore.map((m) => (m.id === Number(id) ? { ...m, status: action } : m));
+    meetingsStore = meetingsStore.map((m) =>
+      m.id === Number(id)
+        ? { ...m, status: action, confirmedSlot: action === 'accepted' ? (confirmedSlot || m.proposedSlots?.[0] || '') : m.confirmedSlot }
+        : m
+    );
     return meetingsStore.find((m) => m.id === Number(id));
   },
 };

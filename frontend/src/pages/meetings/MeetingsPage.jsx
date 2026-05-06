@@ -18,7 +18,9 @@ export default function MeetingsPage() {
   }, [user]);
 
   const handleRespond = async (id, action) => {
-    const updated = await meetingsApi.respond(id, action);
+    const meeting = meetings.find(m => m.id === id);
+    const confirmedSlot = action === 'accepted' ? (meeting?.proposedSlots?.[0] || '') : undefined;
+    const updated = await meetingsApi.respond(id, action, confirmedSlot);
     setMeetings(prev => prev.map(m => m.id === updated.id ? updated : m));
   };
 

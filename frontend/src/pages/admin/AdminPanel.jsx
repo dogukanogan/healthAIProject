@@ -143,8 +143,12 @@ export default function AdminPanel() {
               <option value="">All Actions</option>
               <option value="login">Login</option>
               <option value="post_create">Post Create</option>
-              <option value="meeting_request">Meeting Request</option>
+              <option value="post_update">Post Update</option>
               <option value="post_remove">Post Remove</option>
+              <option value="meeting_request">Meeting Request</option>
+              <option value="meeting_response">Meeting Response</option>
+              <option value="suspend_user">Suspend User</option>
+              <option value="data_export">Data Export</option>
             </select>
             <button className="btn btn-secondary btn-sm" onClick={() => adminApi.exportLogsCSV(filteredLogs)}>
               Export CSV

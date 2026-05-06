@@ -70,10 +70,18 @@ export default function LoginPage() {
         </p>
 
         <div className="auth-demo-hint">
-          <strong>Demo accounts:</strong><br />
-          dogukan@university.edu (engineer)<br />
-          ayse@hospital.edu (healthcare)<br />
-          admin@healthai.edu (admin)
+          <strong>Demo accounts — click to fill:</strong>
+          <div className="demo-btns">
+            <button type="button" className="demo-btn" onClick={() => setForm({ email: 'dogukan@university.edu', password: 'password123' })}>
+              ⚙️ Engineer
+            </button>
+            <button type="button" className="demo-btn" onClick={() => setForm({ email: 'ayse@hospital.edu', password: 'password123' })}>
+              🏥 Healthcare
+            </button>
+            <button type="button" className="demo-btn" onClick={() => setForm({ email: 'admin@healthai.edu', password: 'password123' })}>
+              🛡️ Admin
+            </button>
+          </div>
         </div>
       </div>
     </div>
