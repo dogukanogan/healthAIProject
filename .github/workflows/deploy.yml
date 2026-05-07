@@ -42,6 +42,9 @@ jobs:
           VITE_USE_MOCK: 'true'
         run: npm run build
 
+      - name: Copy index.html to 404.html
+        run: cp frontend/dist/index.html frontend/dist/404.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
