@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { postsApi } from '../../services';
 import PostCard from '../../components/common/PostCard';
@@ -7,10 +7,34 @@ import './PostList.css';
 
 const EMPTY_FILTERS = { domain: '', city: '', expertise: '', stage: '', status: '' };
 
+// D: Parse expertise field into individual tags
+function parseExpertiseTags(posts) {
+  const freq = {};
+  posts.forEach(p => {
+    if (!p.expertiseRequired) return;
+    // Split by common delimiters: / , ; and trim
+    p.expertiseRequired
+      .split(/[/,;]/)
+      .map(t => t.trim())
+      .filter(t => t.length > 2 && t.length < 40)
+      .forEach(t => { freq[t] = (freq[t] || 0) + 1; });
+  });
+  return Object.entries(freq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 8)
+    .map(([tag, count]) => ({ tag, count }));
+}
+
 export default function PostListPage() {
-  const [posts, setPosts]       = useState([]);
-  const [filters, setFilters]   = useState(EMPTY_FILTERS);
-  const [loading, setLoading]   = useState(true);
+  const [posts, setPosts]     = useState([]);
+  const [allPosts, setAllPosts] = useState([]);   // full list for tag calc
+  const [filters, setFilters] = useState(EMPTY_FILTERS);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch all posts once for trending tags
+  useEffect(() => {
+    postsApi.getAll({}).then(setAllPosts).catch(() => {});
+  }, []);
 
   const fetchPosts = async (f) => {
     setLoading(true);
@@ -31,6 +55,15 @@ export default function PostListPage() {
     fetchPosts(EMPTY_FILTERS);
   };
 
+  const handleTagClick = (tag) => {
+    const newFilters = { ...EMPTY_FILTERS, expertise: tag };
+    setFilters(newFilters);
+    fetchPosts(newFilters);
+  };
+
+  // D: Compute trending tags from all posts
+  const trendingTags = useMemo(() => parseExpertiseTags(allPosts), [allPosts]);
+
   return (
     <div className="page-container">
       <div className="page-header">
@@ -39,6 +72,25 @@ export default function PostListPage() {
       </div>
 
       <FilterBar filters={filters} onChange={handleFilterChange} onClear={handleClear} />
+
+      {/* D: Trending Expertise Tags */}
+      {trendingTags.length > 0 && (
+        <div className="trending-section">
+          <span className="trending-label">🔥 Trending expertise</span>
+          <div className="trending-tags">
+            {trendingTags.map(({ tag, count }) => (
+              <button
+                key={tag}
+                className={`trending-tag${filters.expertise === tag ? ' active' : ''}`}
+                onClick={() => filters.expertise === tag ? handleClear() : handleTagClick(tag)}
+              >
+                {tag}
+                <span className="trending-tag-count">{count}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {loading ? (
         <div className="skeleton-grid">

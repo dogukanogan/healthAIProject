@@ -25,6 +25,80 @@
   gap: 18px;
 }
 
+/* ── D: Trending Expertise Tags ────────────────────────────────────── */
+.trending-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-xl);
+  animation: fadeIn 0.4s ease;
+}
+
+.trending-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.trending-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.trending-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  border-radius: 99px;
+  border: 1px solid rgba(255,255,255,0.09);
+  background: rgba(255,255,255,0.04);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+.trending-tag:hover {
+  border-color: rgba(56,189,248,0.35);
+  background: rgba(56,189,248,0.08);
+  color: #38BDF8;
+  transform: translateY(-1px);
+}
+.trending-tag.active {
+  border-color: #38BDF8;
+  background: rgba(56,189,248,0.14);
+  color: #38BDF8;
+  box-shadow: 0 0 12px rgba(56,189,248,0.15);
+}
+
+.trending-tag-count {
+  background: rgba(255,255,255,0.10);
+  color: var(--gray-500);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 99px;
+  line-height: 1.4;
+  transition: inherit;
+}
+.trending-tag:hover .trending-tag-count,
+.trending-tag.active .trending-tag-count {
+  background: rgba(56,189,248,0.20);
+  color: #38BDF8;
+}
+
 /* ── Empty State ───────────────────────────────────────────────────── */
 .empty-state {
   text-align: center;
