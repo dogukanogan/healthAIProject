@@ -10,77 +10,79 @@
   gap: 8px;
 }
 .results-count span {
-  background: var(--primary-light);
-  color: var(--primary);
+  background: rgba(59,130,246,0.20);
+  color: #60A5FA;
   font-weight: 700;
   padding: 2px 10px;
   border-radius: 99px;
   font-size: 12px;
+  border: 1px solid rgba(59,130,246,0.25);
 }
 
 .posts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 20px;
+  gap: 18px;
 }
 
 /* ── Empty State ───────────────────────────────────────────────────── */
 .empty-state {
   text-align: center;
   padding: 80px 20px;
-  color: var(--gray-400);
 }
 .empty-state-icon {
   font-size: 52px;
   margin-bottom: 16px;
   display: block;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 .empty-state p {
   font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 20px;
-  color: var(--gray-500);
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--gray-600);
 }
 .empty-state-sub {
   font-size: 14px;
-  color: var(--gray-400);
+  color: var(--gray-500);
   margin-bottom: 24px !important;
 }
 
-/* ── Loading ───────────────────────────────────────────────────────── */
+/* ── Loading skeleton ──────────────────────────────────────────────── */
 .loading-text {
-  color: var(--gray-400);
+  color: var(--gray-500);
   text-align: center;
   padding: 60px;
   font-size: 15px;
 }
 
-/* Skeleton cards */
 .skeleton-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 20px;
+  gap: 18px;
 }
 .skeleton-card {
   background: var(--white);
   border-radius: var(--radius-xl);
-  border: 1px solid var(--gray-200);
+  border: 1px solid var(--border);
   padding: 24px;
   overflow: hidden;
 }
 .skeleton-line {
-  height: 14px;
+  height: 13px;
   border-radius: 7px;
-  background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-50) 50%, var(--gray-100) 75%);
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.04) 25%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.04) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
-  margin-bottom: 12px;
+  margin-bottom: 11px;
 }
 .skeleton-line.wide  { width: 80%; }
 .skeleton-line.mid   { width: 55%; }
 .skeleton-line.short { width: 35%; }
-.skeleton-line.tall  { height: 60px; }
+.skeleton-line.tall  { height: 56px; }
 
 @keyframes shimmer {
   0%   { background-position: 200% 0; }

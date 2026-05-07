@@ -5,39 +5,24 @@ import { useToast } from '../../context/ToastContext';
 import './Auth.css';
 
 const SLIDES = [
-  {
-    icon: '🏥',
-    iconClass: 'blue',
-    title: 'Post Clinical Problems',
-    desc: 'Healthcare professionals share unmet needs & project ideas',
-  },
-  {
-    icon: '⚙️',
-    iconClass: 'cyan',
-    title: 'Engineers Respond',
-    desc: 'Tech teams find relevant medical challenges to solve',
-  },
-  {
-    icon: '🤝',
-    iconClass: 'violet',
-    title: 'NDA-Protected Meetings',
-    desc: '3-step verified meeting system protects your IP',
-  },
+  { icon: '🏥', title: 'Post Clinical Problems', desc: 'Healthcare pros share unmet needs & ideas' },
+  { icon: '⚙️', title: 'Engineers Respond',      desc: 'Tech teams find medical challenges to solve' },
+  { icon: '🤝', title: 'NDA-Protected Meetings', desc: '3-step verified system protects your IP' },
 ];
 
-function AnimatedCounter({ target, duration = 1800 }) {
-  const [count, setCount] = useState(0);
+function Counter({ target, suffix = '' }) {
+  const [n, setN] = useState(0);
   useEffect(() => {
-    let start = 0;
-    const step = Math.ceil(target / (duration / 30));
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) { setCount(target); clearInterval(timer); }
-      else setCount(start);
-    }, 30);
-    return () => clearInterval(timer);
-  }, [target, duration]);
-  return <>{count.toLocaleString()}</>;
+    let v = 0;
+    const step = Math.ceil(target / 50);
+    const t = setInterval(() => {
+      v = Math.min(v + step, target);
+      setN(v);
+      if (v >= target) clearInterval(t);
+    }, 28);
+    return () => clearInterval(t);
+  }, [target]);
+  return <>{n}{suffix}</>;
 }
 
 export default function LoginPage() {
@@ -46,17 +31,16 @@ export default function LoginPage() {
   const toast      = useToast();
   const [form, setForm]       = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
-  const [active, setActive]   = useState(0);
+  const [slide, setSlide]     = useState(0);
 
-  // auto-cycle slides
   useEffect(() => {
-    const t = setInterval(() => setActive(p => (p + 1) % SLIDES.length), 3200);
+    const t = setInterval(() => setSlide(p => (p + 1) % SLIDES.length), 3400);
     return () => clearInterval(t);
   }, []);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -65,165 +49,131 @@ export default function LoginPage() {
       navigate('/dashboard');
     } catch (err) {
       toast.error(err.message);
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
   };
 
   return (
-    <div className="auth-page">
+    <div className="auth-fullscreen">
 
-      {/* ── LEFT PANEL ── */}
-      <div className="auth-panel-left">
-        {/* Animated orbs */}
+      {/* ── Animated background ── */}
+      <div className="auth-bg">
         <div className="auth-orb auth-orb-1" />
         <div className="auth-orb auth-orb-2" />
         <div className="auth-orb auth-orb-3" />
+        <div className="auth-grid" />
+        <div className="auth-vignette" />
+      </div>
 
-        {/* Floating pills */}
-        <div className="auth-floating-pills">
-          <span className="auth-pill auth-pill-1">🔒 NDA Protected</span>
-          <span className="auth-pill auth-pill-2">✅ .edu Verified</span>
-          <span className="auth-pill auth-pill-3">🚀 GDPR Compliant</span>
-        </div>
+      {/* ── Floating badges ── */}
+      <span className="auth-pill auth-pill-1">🔒 NDA Protected</span>
+      <span className="auth-pill auth-pill-2">✅ .edu Verified Only</span>
+      <span className="auth-pill auth-pill-3">🚀 GDPR Compliant</span>
 
-        <div className="auth-left-content">
-          {/* Brand */}
+      {/* ── Center layout ── */}
+      <div className="auth-center">
+
+        {/* Left: brand + showcase */}
+        <div className="auth-hero">
           <div className="auth-left-brand">
             <div className="auth-left-logo">⚕</div>
             <span className="auth-left-brand-name">Health<span>AI</span></span>
           </div>
 
-          {/* Headline */}
           <h1 className="auth-left-title">
             Where Medicine<br />Meets <span>Engineering</span>
           </h1>
           <p className="auth-left-subtitle">
-            The platform that connects healthcare professionals with engineers to build the next generation of medical technology.
+            The platform connecting healthcare professionals with engineers to build the next generation of medical technology.
           </p>
 
-          {/* Animated showcase cards */}
+          {/* Sliding feature cards */}
           <div className="auth-showcase">
             {SLIDES.map((s, i) => (
               <div
                 key={i}
-                className={`auth-showcase-card${active === i ? ' auth-showcase-card--active' : ''}`}
+                className="auth-showcase-card"
+                onClick={() => setSlide(i)}
                 style={{
-                  opacity: active === i ? 1 : 0.45,
-                  transform: active === i ? 'translateX(0) scale(1)' : 'translateX(-6px) scale(0.98)',
-                  borderColor: active === i ? 'rgba(56,189,248,0.35)' : 'rgba(255,255,255,0.10)',
-                  background: active === i ? 'rgba(255,255,255,0.10)' : 'rgba(255,255,255,0.05)',
-                  transition: 'all 0.5s cubic-bezier(0.4,0,0.2,1)',
+                  opacity:      slide === i ? 1 : 0.38,
+                  transform:    slide === i ? 'translateX(0) scale(1)' : 'translateX(-8px) scale(0.97)',
+                  borderColor:  slide === i ? 'rgba(56,189,248,0.40)' : 'rgba(255,255,255,0.07)',
+                  background:   slide === i ? 'rgba(56,189,248,0.08)' : 'rgba(255,255,255,0.04)',
+                  transition: 'all 0.45s cubic-bezier(0.4,0,0.2,1)',
+                  cursor: 'pointer',
                 }}
-                onClick={() => setActive(i)}
               >
-                <div className={`auth-showcase-icon ${s.iconClass}`}>{s.icon}</div>
+                <div className="auth-showcase-icon blue" style={{ fontSize: 22 }}>{s.icon}</div>
                 <div className="auth-showcase-text">
                   <strong>{s.title}</strong>
                   <span>{s.desc}</span>
                 </div>
-                {active === i && (
-                  <div style={{
-                    marginLeft:'auto', width:8, height:8,
-                    borderRadius:'50%', background:'#38BDF8',
-                    flexShrink: 0,
-                    boxShadow: '0 0 8px #38BDF8',
-                    animation: 'pulse 1.4s ease-in-out infinite'
-                  }} />
-                )}
+                {slide === i && <div className="auth-pulse-dot" />}
               </div>
             ))}
           </div>
 
-          {/* Slide dots */}
-          <div style={{ display:'flex', gap:8, marginBottom:32 }}>
-            {SLIDES.map((_,i) => (
-              <button
-                key={i}
-                onClick={() => setActive(i)}
-                style={{
-                  width: active===i ? 24 : 8,
-                  height: 8,
-                  borderRadius: 99,
-                  border: 'none',
-                  background: active===i ? '#38BDF8' : 'rgba(255,255,255,0.25)',
-                  cursor: 'pointer',
-                  padding: 0,
-                  transition: 'all 0.35s ease',
-                }}
-              />
+          {/* Dot nav */}
+          <div className="auth-dots">
+            {SLIDES.map((_, i) => (
+              <button key={i} className={`auth-dot${slide === i ? ' auth-dot--active' : ''}`} onClick={() => setSlide(i)} />
             ))}
           </div>
 
-          {/* Stats row */}
+          {/* Stats */}
           <div className="auth-left-stats">
             <div className="auth-stat">
-              <span className="auth-stat-num"><AnimatedCounter target={120} />+</span>
+              <span className="auth-stat-num"><Counter target={120} suffix="+" /></span>
               <span className="auth-stat-label">Projects</span>
             </div>
             <div className="auth-stat">
-              <span className="auth-stat-num"><AnimatedCounter target={340} />+</span>
+              <span className="auth-stat-num"><Counter target={340} suffix="+" /></span>
               <span className="auth-stat-label">Members</span>
             </div>
             <div className="auth-stat">
-              <span className="auth-stat-num"><AnimatedCounter target={48} /></span>
+              <span className="auth-stat-num"><Counter target={48} /></span>
               <span className="auth-stat-label">Meetings</span>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* ── RIGHT PANEL ── */}
-      <div className="auth-panel-right">
-        <div className="auth-card">
-          <h1 className="auth-title">Sign In</h1>
-          <p className="auth-subtitle">Welcome back. Sign in to continue.</p>
+        {/* Right: form card */}
+        <div className="auth-form-wrap">
+          <div className="auth-glass-card">
+            <h1 className="auth-title">Sign In</h1>
+            <p className="auth-subtitle">Welcome back. Sign in to continue.</p>
 
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Institutional Email</label>
-              <input
-                className="form-control"
-                type="email"
-                name="email"
-                placeholder="you@university.edu"
-                value={form.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                className="form-control"
-                type="password"
-                name="password"
-                placeholder="••••••••"
-                value={form.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <button className="btn btn-primary btn-lg auth-submit" type="submit" disabled={loading}>
-              {loading ? 'Signing in…' : 'Sign In →'}
-            </button>
-          </form>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label>Institutional Email</label>
+                <input className="form-control" type="email" name="email"
+                  placeholder="you@university.edu" value={form.email} onChange={handleChange} required />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input className="form-control" type="password" name="password"
+                  placeholder="••••••••" value={form.password} onChange={handleChange} required />
+              </div>
+              <button className="btn btn-primary btn-lg auth-submit" type="submit" disabled={loading}>
+                {loading ? 'Signing in…' : 'Sign In →'}
+              </button>
+            </form>
 
-          <p className="auth-footer">
-            Don't have an account? <Link to="/register">Register</Link>
-          </p>
+            <p className="auth-footer">
+              Don't have an account? <Link to="/register">Register</Link>
+            </p>
 
-          <div className="auth-demo-hint">
-            <strong>Demo accounts — click to fill</strong>
-            <div className="demo-btns">
-              <button type="button" className="demo-btn" onClick={() => setForm({ email: 'dogukan@university.edu', password: 'password123' })}>⚙️ Engineer</button>
-              <button type="button" className="demo-btn" onClick={() => setForm({ email: 'ayse@hospital.edu',    password: 'password123' })}>🏥 Healthcare</button>
-              <button type="button" className="demo-btn" onClick={() => setForm({ email: 'admin@healthai.edu',   password: 'password123' })}>🛡️ Admin</button>
+            <div className="auth-demo-hint">
+              <strong>Demo accounts — click to fill</strong>
+              <div className="demo-btns">
+                <button type="button" className="demo-btn" onClick={() => setForm({ email: 'dogukan@university.edu', password: 'password123' })}>⚙️ Engineer</button>
+                <button type="button" className="demo-btn" onClick={() => setForm({ email: 'ayse@hospital.edu',    password: 'password123' })}>🏥 Healthcare</button>
+                <button type="button" className="demo-btn" onClick={() => setForm({ email: 'admin@healthai.edu',   password: 'password123' })}>🛡️ Admin</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
+      </div>
     </div>
   );
 }

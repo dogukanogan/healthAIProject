@@ -1,10 +1,9 @@
 /* ── Meeting Request Modal ─────────────────────────────────────────── */
-
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(4px);
+  background: rgba(0,0,0,0.70);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,228 +17,153 @@
 }
 
 .modal-card {
-  background: var(--white);
+  background: rgba(15,23,41,0.95);
+  border: 1px solid rgba(255,255,255,0.10);
   border-radius: var(--radius-xl);
   width: 100%;
-  max-width: 540px;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.18), 0 8px 24px rgba(0,0,0,0.08);
+  max-width: 520px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.70), inset 0 1px 0 rgba(255,255,255,0.07);
   display: flex;
   flex-direction: column;
   max-height: 90vh;
   overflow-y: auto;
-  animation: modalIn 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: modalIn 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(24px);
 }
 @keyframes modalIn {
-  from { opacity: 0; transform: scale(0.93) translateY(12px); }
+  from { opacity: 0; transform: scale(0.92) translateY(16px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* ── Header ────────────────────────────────────────────────────────── */
 .modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 28px;
-  border-bottom: 1px solid var(--gray-100);
-  background: linear-gradient(135deg, #FAFBFF, #EFF6FF);
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(56,189,248,0.06));
 }
-
 .modal-header h2 {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
-  color: var(--gray-900);
-  letter-spacing: -0.01em;
+  color: #F1F5F9;
 }
 
 .modal-close {
-  background: var(--gray-100);
+  background: rgba(255,255,255,0.08);
   border: none;
-  width: 32px;
-  height: 32px;
+  width: 30px; height: 30px;
   border-radius: 50%;
-  font-size: 16px;
-  color: var(--gray-500);
+  font-size: 15px;
+  color: rgba(255,255,255,0.50);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   transition: var(--transition);
-  line-height: 1;
 }
-.modal-close:hover {
-  background: var(--gray-200);
-  color: var(--gray-800);
-}
+.modal-close:hover { background: rgba(248,113,113,0.18); color: #FCA5A5; }
 
-/* ── Step indicator ────────────────────────────────────────────────── */
+/* Step indicator */
 .modal-steps {
   display: flex;
-  padding: 18px 28px;
-  gap: 0;
-  border-bottom: 1px solid var(--gray-100);
-  background: #FAFBFF;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
 }
-
 .modal-step {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--gray-400);
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.30);
   flex: 1;
   position: relative;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 .modal-step::after {
   content: '';
   position: absolute;
-  right: 0;
-  top: 50%;
+  right: 0; top: 50%;
   transform: translateY(-50%);
-  width: 55%;
-  height: 2px;
-  background: var(--gray-200);
-  border-radius: 1px;
+  width: 55%; height: 1px;
+  background: rgba(255,255,255,0.08);
 }
 .modal-step:last-child::after { display: none; }
-.modal-step.active { color: var(--primary); }
-.modal-step.done   { color: #059669; }
+.modal-step.active { color: #38BDF8; }
+.modal-step.done   { color: #34D399; }
 
 .step-num {
-  width: 26px;
-  height: 26px;
+  width: 24px; height: 24px;
   border-radius: 50%;
-  background: var(--gray-200);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 800;
+  background: rgba(255,255,255,0.07);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800;
   flex-shrink: 0;
   transition: var(--transition);
 }
-.modal-step.active .step-num {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: white;
-  box-shadow: 0 2px 8px rgba(37,99,235,0.35);
-}
-.modal-step.done .step-num {
-  background: #10B981;
-  color: white;
-}
+.modal-step.active .step-num { background: linear-gradient(135deg, #2563EB, #38BDF8); color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.40); }
+.modal-step.done   .step-num { background: #10B981; color: white; }
 
-/* ── Body ──────────────────────────────────────────────────────────── */
-.modal-body {
-  padding: 26px 28px;
-  flex: 1;
-}
+/* Body */
+.modal-body { padding: 24px; flex: 1; }
 
 .modal-subtitle {
-  font-size: 14px;
-  color: var(--gray-500);
-  margin-bottom: 18px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 16px;
   line-height: 1.6;
 }
 
+/* Inputs in modal */
+.modal-body .form-control {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.10);
+  color: #F1F5F9;
+}
+.modal-body .form-control:focus {
+  border-color: #38BDF8;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
+  background: rgba(255,255,255,0.08);
+}
+.modal-body .form-control::placeholder { color: rgba(255,255,255,0.25); }
+.modal-body label { color: rgba(255,255,255,0.55) !important; font-size: 11px !important; font-weight: 700 !important; text-transform: uppercase; letter-spacing: 0.05em; }
+
 /* NDA box */
 .nda-box {
-  background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
-  border: 1px solid #FCD34D;
+  background: rgba(251,191,36,0.08);
+  border: 1px solid rgba(251,191,36,0.22);
   border-radius: var(--radius-lg);
-  padding: 18px;
-  margin-bottom: 18px;
+  padding: 16px;
+  margin-bottom: 16px;
 }
-.nda-box h4 {
-  font-size: 14px;
-  font-weight: 700;
-  color: #92400E;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.nda-box p {
-  font-size: 13px;
-  color: #78350F;
-  line-height: 1.65;
-}
+.nda-box h4 { font-size: 13px; font-weight: 700; color: #FCD34D; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.nda-box p  { font-size: 12px; color: rgba(253,211,77,0.70); line-height: 1.65; }
 
 /* NDA checkbox */
 .nda-check {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  color: var(--gray-700);
+  color: rgba(255,255,255,0.65);
   user-select: none;
   padding: 10px 14px;
   border-radius: var(--radius-lg);
-  border: 1.5px solid var(--gray-200);
+  border: 1px solid rgba(255,255,255,0.08);
   transition: var(--transition);
 }
-.nda-check:hover {
-  border-color: var(--primary);
-  background: #FAFCFF;
-}
-.nda-check input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--primary);
-  cursor: pointer;
-}
+.nda-check:hover { border-color: #38BDF8; background: rgba(56,189,248,0.07); }
+.nda-check input[type="checkbox"] { width: 16px; height: 16px; accent-color: #38BDF8; cursor: pointer; }
 
-/* Slot selection */
-.slot-input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-.slot-input-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.slot-input-row .form-control {
-  flex: 1;
-}
-.slot-remove {
-  background: none;
-  border: 1.5px solid var(--gray-200);
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-  color: var(--gray-400);
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: var(--transition);
-  flex-shrink: 0;
-}
-.slot-remove:hover {
-  border-color: var(--danger);
-  color: var(--danger);
-  background: #FEF2F2;
-}
-
-/* ── Footer ────────────────────────────────────────────────────────── */
+/* Footer */
 .modal-footer {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  padding: 18px 28px;
-  border-top: 1px solid var(--gray-100);
-  background: #FAFBFF;
-}
-
-@media (max-width: 560px) {
-  .modal-card  { border-radius: var(--radius-lg); }
-  .modal-body  { padding: 20px 18px; }
-  .modal-steps { display: none; }
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
 }
