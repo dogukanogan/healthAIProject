@@ -1,0 +1,233 @@
+/* ── Admin Panel ───────────────────────────────────────────────────── */
+
+/* Summary stats row */
+.admin-stats {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.admin-stat-card {
+  flex: 1;
+  min-width: 150px;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow: var(--shadow-xs);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.admin-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--primary-mid);
+}
+.admin-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 3px 3px 0 0;
+}
+.admin-stat-num {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--gray-900);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.admin-stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Old pill style (kept for compatibility) */
+.admin-stat {
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 4px 14px;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ── Tabs ──────────────────────────────────────────────────────────── */
+.admin-tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--gray-200);
+  padding-bottom: 0;
+}
+
+.admin-tab {
+  padding: 11px 26px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-500);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.15s;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.admin-tab:hover { color: var(--gray-800); background: var(--gray-50); }
+.admin-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+  background: var(--primary-light);
+  font-weight: 700;
+}
+
+/* ── Toolbar ───────────────────────────────────────────────────────── */
+.admin-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.admin-search {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+.admin-search input {
+  width: 100%;
+  padding: 9px 14px 9px 38px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: var(--transition);
+  background: var(--white);
+  box-sizing: border-box;
+}
+.admin-search input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+.admin-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-400);
+  font-size: 15px;
+}
+
+/* ── Table ─────────────────────────────────────────────────────────── */
+.admin-table-wrap {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.admin-table th {
+  background: linear-gradient(to bottom, #F8FAFF, #EFF6FF);
+  padding: 11px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid var(--gray-200);
+  white-space: nowrap;
+}
+
+.admin-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--gray-100);
+  color: var(--gray-700);
+  vertical-align: middle;
+}
+
+.admin-table tr:last-child td { border-bottom: none; }
+.admin-table tr:hover td {
+  background: linear-gradient(to right, #FAFBFF, #F0F4FF);
+}
+
+/* Role badges in table */
+.role-pill {
+  padding: 2px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.role-pill.engineer   { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-mid); }
+.role-pill.healthcare { background: #D1FAE5; color: #065F46; border: 1px solid #6EE7B7; }
+.role-pill.admin      { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+
+/* ── Activity Log ──────────────────────────────────────────────────── */
+.log-timestamp {
+  font-size: 11px;
+  color: var(--gray-400);
+  white-space: nowrap;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.log-action {
+  background: var(--gray-100);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--gray-600);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.log-action.create { background: #D1FAE5; color: #065F46; }
+.log-action.delete { background: #FEE2E2; color: #991B1B; }
+.log-action.update { background: #DBEAFE; color: #1E40AF; }
+
+/* Table action btns */
+.table-action-btn {
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  background: none;
+}
+.table-action-btn.danger {
+  color: var(--danger);
+  border-color: #FECACA;
+}
+.table-action-btn.danger:hover {
+  background: #FEF2F2;
+  border-color: var(--danger);
+}
+
+@media (max-width: 768px) {
+  .admin-stats { gap: 10px; }
+  .admin-stat-card { min-width: calc(50% - 5px); flex: none; }
+  .admin-table-wrap { overflow-x: auto; }
+}

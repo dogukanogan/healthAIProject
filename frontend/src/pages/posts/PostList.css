@@ -1,0 +1,92 @@
+/* ── Post List Page ────────────────────────────────────────────────── */
+
+.results-count {
+  font-size: 13px;
+  color: var(--gray-500);
+  margin-bottom: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.results-count span {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 20px;
+}
+
+/* ── Empty State ───────────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--gray-400);
+}
+.empty-state-icon {
+  font-size: 52px;
+  margin-bottom: 16px;
+  display: block;
+  opacity: 0.6;
+}
+.empty-state p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: var(--gray-500);
+}
+.empty-state-sub {
+  font-size: 14px;
+  color: var(--gray-400);
+  margin-bottom: 24px !important;
+}
+
+/* ── Loading ───────────────────────────────────────────────────────── */
+.loading-text {
+  color: var(--gray-400);
+  text-align: center;
+  padding: 60px;
+  font-size: 15px;
+}
+
+/* Skeleton cards */
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 20px;
+}
+.skeleton-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-200);
+  padding: 24px;
+  overflow: hidden;
+}
+.skeleton-line {
+  height: 14px;
+  border-radius: 7px;
+  background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-50) 50%, var(--gray-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  margin-bottom: 12px;
+}
+.skeleton-line.wide  { width: 80%; }
+.skeleton-line.mid   { width: 55%; }
+.skeleton-line.short { width: 35%; }
+.skeleton-line.tall  { height: 60px; }
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (max-width: 768px) {
+  .posts-grid { grid-template-columns: 1fr; }
+}
