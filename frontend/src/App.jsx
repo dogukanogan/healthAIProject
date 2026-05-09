@@ -15,6 +15,7 @@ import PostDetailPage   from './pages/posts/PostDetailPage';
 import PostCreatePage   from './pages/posts/PostCreatePage';
 import PostEditPage     from './pages/posts/PostEditPage';
 import MeetingsPage     from './pages/meetings/MeetingsPage';
+import MeetingDetailPage from './pages/meetings/MeetingDetailPage';
 import ProfilePage      from './pages/profile/ProfilePage';
 
 // Pages — Admin
@@ -57,6 +58,9 @@ export default function App() {
           } />
           <Route path="/meetings" element={
             <PrivateRoute><AppLayout><MeetingsPage /></AppLayout></PrivateRoute>
+          } />
+          <Route path="/meetings/:id" element={
+            <PrivateRoute><AppLayout><MeetingDetailPage /></AppLayout></PrivateRoute>
           } />
           <Route path="/profile" element={
             <PrivateRoute><AppLayout><ProfilePage /></AppLayout></PrivateRoute>

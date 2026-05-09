@@ -47,6 +47,7 @@ export default function RegisterPage() {
   /* ── Email verification screen ── */
   if (step === 2) {
     return (
+      <div className="auth-always-dark">
       <div className="auth-page">
         <div className="auth-panel-left">
           <div className="auth-orb auth-orb-1" />
@@ -107,11 +108,13 @@ export default function RegisterPage() {
           </div>
         </div>
       </div>
+      </div>
     );
   }
 
   /* ── Registration form ── */
   return (
+    <div className="auth-always-dark">
     <div className="auth-page">
       <div className="auth-panel-left">
         <div className="auth-orb auth-orb-1" />
@@ -233,6 +236,7 @@ export default function RegisterPage() {
           </p>
         </div>
       </div>
+    </div>
     </div>
   );
 }

@@ -477,3 +477,63 @@ select.form-control option { background: #1E293B; color: #F1F5F9; }
 
 /* ── Light theme: select options ─────────────────────────────────────── */
 [data-theme="light"] select.form-control option { background: #FFFFFF; color: #0F172A; }
+
+/* ── Comprehensive Light Theme Overrides ────────────────────────────── */
+[data-theme="light"] .page-title {
+  background: linear-gradient(90deg, #0F172A, #1D4ED8) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+[data-theme="light"] h1, [data-theme="light"] h2, [data-theme="light"] h3 {
+  color: #0F172A;
+}
+[data-theme="light"] p, [data-theme="light"] span, [data-theme="light"] label, [data-theme="light"] strong {
+  color: inherit;
+}
+[data-theme="light"] .card { background: #FFFFFF; border-color: rgba(0,0,0,0.09); color: #0F172A; }
+[data-theme="light"] .stat-card { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.09); }
+[data-theme="light"] .stat-number { color: #1D4ED8; }
+[data-theme="light"] .stat-label { color: rgba(0,0,0,0.55); }
+[data-theme="light"] .dashboard-hero { background: linear-gradient(135deg, rgba(37,99,235,0.10), rgba(56,189,248,0.07)); border-color: rgba(37,99,235,0.15); }
+[data-theme="light"] .dashboard-hero h1 { color: #0F172A; }
+[data-theme="light"] .dashboard-hero p { color: rgba(0,0,0,0.60); }
+[data-theme="light"] .page-container { background: transparent; }
+[data-theme="light"] .post-form-card { background: #FFFFFF; border-color: rgba(0,0,0,0.09); }
+[data-theme="light"] .post-form-card .form-control {
+  background: #F8FAFF;
+  border-color: rgba(0,0,0,0.15);
+  color: #0F172A;
+}
+[data-theme="light"] .post-form-card .form-control:focus { background: #fff; border-color: #2563EB; }
+[data-theme="light"] .post-form-card .form-control::placeholder { color: rgba(0,0,0,0.35); }
+[data-theme="light"] .form-section-title { color: #1D4ED8; }
+[data-theme="light"] .form-group label { color: rgba(0,0,0,0.55); }
+[data-theme="light"] .post-card { background: #FFFFFF; border-color: rgba(0,0,0,0.08); }
+[data-theme="light"] .post-card:hover { border-color: rgba(37,99,235,0.25); box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
+[data-theme="light"] .post-card-title { color: #0F172A; }
+[data-theme="light"] .post-card-desc { color: rgba(0,0,0,0.60); }
+[data-theme="light"] .post-card-meta { color: rgba(0,0,0,0.48); }
+[data-theme="light"] .meeting-card { background: #FFFFFF; border-color: rgba(0,0,0,0.08); color: #0F172A; }
+[data-theme="light"] .meeting-post-title { color: #0F172A; }
+[data-theme="light"] .meeting-parties { color: rgba(0,0,0,0.55); }
+[data-theme="light"] .meeting-parties strong { color: #0F172A; }
+[data-theme="light"] .meeting-message { background: rgba(37,99,235,0.07); color: rgba(0,0,0,0.65); }
+[data-theme="light"] .meeting-detail-card { background: #FFFFFF; border-color: rgba(0,0,0,0.08); color: #0F172A; }
+[data-theme="light"] .meeting-detail-label { color: rgba(0,0,0,0.48); }
+[data-theme="light"] .meeting-detail-value, [data-theme="light"] .meeting-detail-post-link { color: #0F172A; }
+[data-theme="light"] .trending-section { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.07); }
+[data-theme="light"] .results-count { color: rgba(0,0,0,0.55); }
+[data-theme="light"] .filter-bar { background: #FFFFFF; border-color: rgba(0,0,0,0.08); }
+[data-theme="light"] .filter-bar .form-control { background: #F8FAFF; border-color: rgba(0,0,0,0.12); color: #0F172A; }
+[data-theme="light"] .post-detail-card { background: #FFFFFF; }
+[data-theme="light"] .post-detail-title { color: #0F172A; }
+[data-theme="light"] .post-detail-header { background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(56,189,248,0.05)); }
+[data-theme="light"] .profile-name { color: #0F172A; }
+[data-theme="light"] .gdpr-title { color: #0F172A; }
+[data-theme="light"] .notif-item strong { color: #0F172A; }
+[data-theme="light"] .loading-text { color: rgba(0,0,0,0.50); }
+[data-theme="light"] .btn-primary { color: #ffffff !important; }
+[data-theme="light"] .btn-secondary { color: rgba(0,0,0,0.75) !important; }
+[data-theme="light"] .ai-suggest-btn { color: #4F46E5 !important; }
+[data-theme="light"] select.form-control option { background: #fff; color: #0F172A; }

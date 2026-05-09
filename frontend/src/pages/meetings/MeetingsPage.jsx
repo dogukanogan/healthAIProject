@@ -148,9 +148,16 @@ function MeetingCard({ m, user, isSelected, onClick }) {
         <div className="meeting-slots">
           <span className="slots-label">Slots:</span>
           <div className="slots-list">
-            {m.proposedSlots.slice(0, 2).map((slot, i) => (
-              <span key={i} className="slot-tag">{formatDateTime(slot)}</span>
-            ))}
+            {m.proposedSlots.slice(0, 2).map((slot, i) => {
+              const [datePart, timePart] = (slot || '').split(' ');
+              const formatted = datePart ? datePart.split('-').reverse().join('/') : '';
+              return (
+                <div key={i} className="slot-tag" style={{flexDirection:'column',gap:1,padding:'5px 12px',display:'flex'}}>
+                  <span style={{fontSize:9,opacity:0.6,fontWeight:700,letterSpacing:'0.05em'}}>DATE {formatted}</span>
+                  <span style={{fontSize:10,fontWeight:700}}>{timePart || '—'}</span>
+                </div>
+              );
+            })}
             {m.proposedSlots.length > 2 && (
               <span className="slot-tag">+{m.proposedSlots.length - 2} more</span>
             )}

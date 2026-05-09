@@ -1,3 +1,22 @@
+/* Auth pages are always dark regardless of theme */
+.auth-always-dark {
+  color-scheme: dark;
+}
+.auth-always-dark,
+.auth-always-dark * {
+  --bg: #060D1F !important;
+  --white: #0F1729 !important;
+  --surface: #0F1729 !important;
+  --surface-2: #152035 !important;
+  --border: rgba(255,255,255,0.08) !important;
+  --gray-900: #F1F5F9 !important;
+  --gray-800: rgba(255,255,255,0.88) !important;
+  --gray-700: rgba(255,255,255,0.75) !important;
+  --gray-600: rgba(255,255,255,0.60) !important;
+  --gray-500: rgba(255,255,255,0.45) !important;
+  --gray-400: rgba(255,255,255,0.28) !important;
+}
+
 /* ══════════════════════════════════════════════════════════════════════
    AUTH  –  Full-screen dark animated background
    ══════════════════════════════════════════════════════════════════════ */

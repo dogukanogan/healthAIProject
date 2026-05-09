@@ -1,4 +1,5 @@
 /* ── Meeting Request Modal ─────────────────────────────────────────── */
+.modal-overlay { color-scheme: dark; }
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -171,7 +172,7 @@
 /* ── Slot inputs ────────────────────────────────────────────────────── */
 .slot-input-row {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 10px;
   margin-bottom: 4px;
 }
@@ -185,7 +186,8 @@
   cursor: pointer;
   font-size: 13px;
   flex-shrink: 0;
-  margin-bottom: 6px;
+  margin-bottom: 0;
+  align-self: center;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.18s;
 }

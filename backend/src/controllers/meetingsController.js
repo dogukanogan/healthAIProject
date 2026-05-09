@@ -12,12 +12,20 @@ const getAllMeetings = async (req, res, next) => {
       order: [['createdAt', 'DESC']]
     });
 
+    // Fetch user emails for requester and owner
+    const userIds = [...new Set(meetings.flatMap(m => [m.requester_id, m.owner_id]).filter(Boolean))];
+    const users = await User.findAll({ where: { id: userIds }, attributes: ['id', 'email'] });
+    const userEmailMap = {};
+    users.forEach(u => { userEmailMap[u.id] = u.email; });
+
     // Formatting for frontend compatibility
     const formatted = meetings.map(m => {
       const data = m.toJSON();
       data.postId = data.post_id;
       data.requesterId = data.requester_id;
       data.ownerId = data.owner_id;
+      data.requesterEmail = userEmailMap[data.requester_id] || null;
+      data.ownerEmail = userEmailMap[data.owner_id] || null;
       return data;
     });
 
@@ -37,8 +45,8 @@ const createMeeting = async (req, res, next) => {
     }
 
     const sanitizedSlots = Array.isArray(proposedSlots) ? proposedSlots.filter(Boolean) : [];
-    if (sanitizedSlots.length === 0 || sanitizedSlots.length > 2) {
-      return res.status(400).json({ message: 'Please provide one or two proposed time slots.' });
+    if (sanitizedSlots.length < 2) {
+      return res.status(400).json({ message: 'Please provide at least 2 proposed time slots.' });
     }
 
     const post = await Post.findByPk(postId);
@@ -92,6 +100,8 @@ const createMeeting = async (req, res, next) => {
     data.postId = data.post_id;
     data.requesterId = data.requester_id;
     data.ownerId = data.owner_id;
+    data.requesterEmail = requester.email || null;
+    data.ownerEmail = owner.email || null;
 
     res.status(201).json(data);
   } catch (error) {
@@ -126,6 +136,15 @@ const respondMeeting = async (req, res, next) => {
     data.postId = data.post_id;
     data.requesterId = data.requester_id;
     data.ownerId = data.owner_id;
+
+    // Add email fields
+    const [requesterUser, ownerUser] = await Promise.all([
+      User.findByPk(data.requester_id, { attributes: ['email'] }),
+      User.findByPk(data.owner_id, { attributes: ['email'] }),
+    ]);
+    data.requesterEmail = requesterUser?.email || null;
+    data.ownerEmail = ownerUser?.email || null;
+
     res.status(200).json(data);
   } catch (error) {
     next(error);

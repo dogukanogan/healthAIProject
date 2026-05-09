@@ -56,6 +56,7 @@
   align-items: center;
   gap: 2px;
   flex: 1;
+  min-width: 0;
 }
 
 .nav-link {
@@ -108,6 +109,8 @@
   display: flex;
   align-items: center;
   gap: 9px;
+  min-width: fit-content;
+  flex-shrink: 0;
 }
 .navbar-avatar {
   width: 32px; height: 32px;
@@ -440,6 +443,11 @@
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   margin-bottom: 4px;
 }
+
+/* Prevent layout shift */
+.navbar-inner { width: 100%; box-sizing: border-box; }
+.navbar-user { flex-shrink: 0; min-width: 0; }
+.navbar-links { overflow: hidden; }
 
 /* ── Role badge in navbar ───────────────────────────────────────────── */
 .navbar-role-badge {

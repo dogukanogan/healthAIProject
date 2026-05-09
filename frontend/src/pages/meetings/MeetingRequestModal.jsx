@@ -10,25 +10,24 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
   const [step, setStep]       = useState(1);
   const [message, setMessage] = useState('');
   const [ndaAccepted, setNda] = useState(false);
-  const [slots, setSlots]     = useState(['', '']);
+  const [slots, setSlots]     = useState([{date:'', time:''}, {date:'', time:''}]);
   const [loading, setLoading] = useState(false);
 
-  const handleSlotChange = (i, val) => {
-    const updated = [...slots];
-    updated[i] = val;
+  const handleSlotChange = (i, field, val) => {
+    const updated = slots.map((s, idx) => idx === i ? { ...s, [field]: val } : s);
     setSlots(updated);
   };
 
-  const addSlot = () => setSlots(s => [...s, '']);
+  const addSlot = () => setSlots(s => [...s, {date:'', time:''}]);
   const removeSlot = (i) => {
     if (slots.length <= 2) return;
     setSlots(s => s.filter((_, idx) => idx !== i));
   };
 
   const handleSubmit = async () => {
-    const filled = slots.filter(Boolean);
+    const filled = slots.filter(s => s.date && s.time).map(s => `${s.date} ${s.time}`);
     if (filled.length < 2) {
-      toast.warning('Please propose at least 2 time slots.');
+      toast.warning('Please propose at least 2 time slots with both date and time filled.');
       return;
     }
     setLoading(true);
@@ -54,7 +53,7 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
   };
 
   return (
-    <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+    <div className="modal-overlay" data-theme="dark" onClick={(e) => e.target === e.currentTarget && onClose()}>
       <div className="modal-card">
         <div className="modal-header">
           <h2>Request Meeting</h2>
@@ -103,20 +102,18 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
               </p>
               {slots.map((slot, i) => (
                 <div className="slot-input-row" key={i}>
-                  <div className="form-group" style={{ flex: 1 }}>
-                    <label>
-                      Slot {i + 1}
-                      {i < 2 && <span className="required"> *</span>}
-                    </label>
-                    <input
-                      className="form-control"
-                      type="datetime-local"
-                      value={slot}
-                      onChange={e => handleSlotChange(i, e.target.value)}
-                    />
+                  <div style={{flex:1}}>
+                    <div className="form-group">
+                      <label>Slot {i+1} — Date {i < 2 && <span className="required">*</span>}</label>
+                      <input className="form-control" type="date" value={slot.date} onChange={e => handleSlotChange(i, 'date', e.target.value)} />
+                    </div>
+                    <div className="form-group" style={{marginTop:8}}>
+                      <label>Time {i < 2 && <span className="required">*</span>}</label>
+                      <input className="form-control" type="time" value={slot.time} onChange={e => handleSlotChange(i, 'time', e.target.value)} />
+                    </div>
                   </div>
                   {slots.length > 2 && (
-                    <button className="slot-remove-btn" onClick={() => removeSlot(i)} title="Remove slot">✕</button>
+                    <button className="slot-remove-btn" onClick={() => removeSlot(i)} title="Remove">✕</button>
                   )}
                 </div>
               ))}

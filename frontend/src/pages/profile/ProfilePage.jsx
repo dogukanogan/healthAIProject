@@ -130,39 +130,31 @@ export default function ProfilePage() {
 
         {/* ── Top card: avatar + info ── */}
         <div className="card profile-top-card">
-          <div className="profile-avatar-section">
+          <div className="profile-avatar-upload-section">
             <div className="profile-avatar-wrap">
               {avatar
-                ? <img src={avatar} alt={user?.name} className="profile-avatar profile-avatar-img" />
+                ? <img src={avatar} alt={user?.name} className="profile-avatar-img" />
                 : <div className="profile-avatar">{user?.name?.charAt(0).toUpperCase()}</div>
               }
             </div>
-            <div style={{ textAlign: 'center' }}>
+            <input ref={fileInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleAvatarChange} />
+            <div className="profile-avatar-actions">
+              <button type="button" className="btn btn-secondary btn-sm" onClick={() => fileInputRef.current?.click()}>
+                📷 Change Photo
+              </button>
+              {avatar && (
+                <button type="button" className="btn btn-danger btn-sm" onClick={handleRemoveAvatar}>
+                  🗑 Remove
+                </button>
+              )}
+            </div>
+            <p className="profile-avatar-hint">Click "Change Photo" to upload a profile picture. Supported: JPG, PNG, GIF</p>
+            <div style={{ textAlign: 'center', marginTop: 4 }}>
               <h2 className="profile-name">{user?.name}</h2>
               <div className="profile-email">{user?.email}</div>
               <span className={`navbar-role-badge ${roleBadgeClass[user?.role]}`}>
                 {roleLabel[user?.role]}
               </span>
-              <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 12, flexWrap: 'wrap' }}>
-                <button
-                  className="btn btn-secondary btn-sm"
-                  onClick={() => fileInputRef.current?.click()}
-                >
-                  📷 Change Photo
-                </button>
-                {avatar && (
-                  <button className="btn btn-secondary btn-sm" onClick={handleRemoveAvatar}>
-                    🗑️ Remove
-                  </button>
-                )}
-              </div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                style={{ display: 'none' }}
-                onChange={handleAvatarChange}
-              />
             </div>
           </div>
         </div>

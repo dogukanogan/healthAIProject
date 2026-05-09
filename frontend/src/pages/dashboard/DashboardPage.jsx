@@ -50,16 +50,6 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className={`role-banner role-banner-${user?.role}`}>
-        <span className="role-banner-icon">
-          {user?.role === 'engineer' ? '⚙️' : user?.role === 'healthcare' ? '🏥' : '🛡️'}
-        </span>
-        <div>
-          <strong>{user?.role === 'engineer' ? 'Engineer' : user?.role === 'healthcare' ? 'Healthcare Professional' : 'Administrator'}</strong>
-          <span> — {user?.email}</span>
-        </div>
-      </div>
-
       <div className="dashboard-section">
         <div className="dashboard-section-header">
           <h2>Recent Active Posts</h2>

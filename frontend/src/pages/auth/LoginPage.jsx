@@ -68,6 +68,7 @@ export default function LoginPage() {
   };
 
   return (
+    <div className="auth-always-dark">
     <div className="auth-fullscreen">
 
       {/* ── Animated background ── */}
@@ -240,6 +241,7 @@ export default function LoginPage() {
         </div>
 
       </div>
+    </div>
     </div>
   );
 }
