@@ -146,20 +146,24 @@ function MeetingCard({ m, user, isSelected, onClick }) {
       </div>
       {m.proposedSlots?.length > 0 && (
         <div className="meeting-slots">
-          <span className="slots-label">Slots:</span>
           <div className="slots-list">
             {m.proposedSlots.slice(0, 2).map((slot, i) => {
-              const [datePart, timePart] = (slot || '').split(' ');
-              const formatted = datePart ? datePart.split('-').reverse().join('/') : '';
+              // Handle both "2026-05-19 21:12" and "2026-05-19T21:12:00" formats
+              const normalized = (slot || '').replace('T', ' ');
+              const spaceIdx = normalized.indexOf(' ');
+              const datePart = spaceIdx > -1 ? normalized.slice(0, spaceIdx) : normalized;
+              const timePart = spaceIdx > -1 ? normalized.slice(spaceIdx + 1, spaceIdx + 6) : '';
+              const [y, mo, d] = datePart.split('-');
+              const dateFormatted = d && mo && y ? `${d}/${mo}/${y}` : datePart;
               return (
-                <div key={i} className="slot-tag" style={{flexDirection:'column',gap:1,padding:'5px 12px',display:'flex'}}>
-                  <span style={{fontSize:9,opacity:0.6,fontWeight:700,letterSpacing:'0.05em'}}>DATE {formatted}</span>
-                  <span style={{fontSize:10,fontWeight:700}}>{timePart || '—'}</span>
+                <div key={i} className="slot-chip">
+                  <span className="slot-chip-date">📅 {dateFormatted}</span>
+                  <span className="slot-chip-time">🕐 {timePart || '—'}</span>
                 </div>
               );
             })}
             {m.proposedSlots.length > 2 && (
-              <span className="slot-tag">+{m.proposedSlots.length - 2} more</span>
+              <div className="slot-chip slot-chip-more">+{m.proposedSlots.length - 2}</div>
             )}
           </div>
         </div>
