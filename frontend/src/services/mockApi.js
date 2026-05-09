@@ -146,6 +146,12 @@ export const authApi = {
     await delay(100);
     return { message: 'Logged out.' };
   },
+
+  changePassword: async ({ currentPassword, newPassword }) => {
+    await delay();
+    if (!newPassword || newPassword.length < 8) throw new Error('New password must be at least 8 characters.');
+    return { message: 'Password changed successfully.' };
+  },
 };
 
 // ── Posts ──────────────────────────────────────────────────────────────────

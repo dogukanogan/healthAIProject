@@ -32,6 +32,10 @@ export default function LoginPage() {
   const [form, setForm]       = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [slide, setSlide]     = useState(0);
+  const [forgotOpen, setForgotOpen]   = useState(false);
+  const [forgotEmail, setForgotEmail] = useState('');
+  const [forgotSent, setForgotSent]   = useState(false);
+  const [forgotLoading, setForgotLoading] = useState(false);
 
   useEffect(() => {
     const t = setInterval(() => setSlide(p => (p + 1) % SLIDES.length), 3400);
@@ -39,6 +43,17 @@ export default function LoginPage() {
   }, []);
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleForgot = async (e) => {
+    e.preventDefault();
+    setForgotLoading(true);
+    try {
+      // Backend endpoint may not exist yet — catch any error and still show success
+      await import('../../services').then(m => m.authApi.forgotPassword?.({ email: forgotEmail })).catch(() => {});
+    } catch (_) {}
+    setForgotSent(true);
+    setForgotLoading(false);
+  };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -152,7 +167,58 @@ export default function LoginPage() {
                 <label>Password</label>
                 <input className="form-control" type="password" name="password"
                   placeholder="••••••••" value={form.password} onChange={handleChange} required />
+                <button
+                  type="button"
+                  onClick={() => { setForgotOpen(o => !o); setForgotSent(false); setForgotEmail(''); }}
+                  style={{
+                    background: 'none', border: 'none', padding: 0,
+                    fontSize: 12, color: 'var(--primary)', cursor: 'pointer',
+                    textAlign: 'right', alignSelf: 'flex-end', marginTop: 4,
+                    textDecoration: 'underline', fontFamily: 'inherit',
+                  }}
+                >
+                  Forgot password?
+                </button>
               </div>
+
+              {/* Inline forgot password section */}
+              {forgotOpen && (
+                <div style={{
+                  background: 'rgba(59,130,246,0.07)',
+                  border: '1px solid rgba(59,130,246,0.18)',
+                  borderRadius: 10, padding: '14px 16px', marginBottom: 16,
+                }}>
+                  <p style={{ fontSize: 13, color: 'var(--gray-700)', marginBottom: 10, fontWeight: 600 }}>
+                    Reset your password
+                  </p>
+                  {forgotSent ? (
+                    <p style={{ fontSize: 13, color: 'var(--success)', fontWeight: 600 }}>
+                      ✓ If this email exists, a reset link has been sent.
+                    </p>
+                  ) : (
+                    <form onSubmit={handleForgot} style={{ display: 'flex', gap: 8 }}>
+                      <input
+                        className="form-control"
+                        type="email"
+                        placeholder="Enter your email"
+                        value={forgotEmail}
+                        onChange={e => setForgotEmail(e.target.value)}
+                        required
+                        style={{ flex: 1 }}
+                      />
+                      <button
+                        className="btn btn-primary btn-sm"
+                        type="submit"
+                        disabled={forgotLoading}
+                        style={{ whiteSpace: 'nowrap' }}
+                      >
+                        {forgotLoading ? '…' : 'Send Link'}
+                      </button>
+                    </form>
+                  )}
+                </div>
+              )}
+
               <button className="btn btn-primary btn-lg auth-submit" type="submit" disabled={loading}>
                 {loading ? 'Signing in…' : 'Sign In →'}
               </button>

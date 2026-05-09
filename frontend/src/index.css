@@ -414,3 +414,66 @@ select.form-control option { background: #1E293B; color: #F1F5F9; }
 [data-theme="light"] .skeleton-line {
   background: linear-gradient(90deg, rgba(0,0,0,0.05) 25%, rgba(0,0,0,0.09) 50%, rgba(0,0,0,0.05) 75%);
 }
+
+/* ── Light theme: badges ──────────────────────────────────────────────── */
+[data-theme="light"] .badge-active    { background: rgba(16,185,129,0.12);  color: #059669; border-color: rgba(16,185,129,0.25); }
+[data-theme="light"] .badge-draft     { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.55); border-color: rgba(0,0,0,0.12); }
+[data-theme="light"] .badge-scheduled { background: rgba(37,99,235,0.10);  color: #2563EB; border-color: rgba(37,99,235,0.22); }
+[data-theme="light"] .badge-closed    { background: rgba(220,38,38,0.10); color: #DC2626; border-color: rgba(220,38,38,0.22); }
+[data-theme="light"] .badge-expired   { background: rgba(217,119,6,0.10);  color: #D97706; border-color: rgba(217,119,6,0.22); }
+
+/* ── Light theme: cards dark text ────────────────────────────────────── */
+[data-theme="light"] .card { color: #0F172A; }
+[data-theme="light"] .section-title { color: #0F172A; }
+[data-theme="light"] .text-muted { color: rgba(0,0,0,0.50); }
+
+/* ── Light theme: meetings ───────────────────────────────────────────── */
+[data-theme="light"] .slot-tag {
+  background: rgba(37,99,235,0.09);
+  color: #2563EB;
+  border-color: rgba(37,99,235,0.18);
+}
+[data-theme="light"] .meeting-card { background: #FFFFFF; color: #0F172A; }
+[data-theme="light"] .meeting-post-title { color: #0F172A; }
+[data-theme="light"] .meeting-parties { color: rgba(0,0,0,0.52); }
+[data-theme="light"] .meeting-parties strong { color: rgba(0,0,0,0.80); }
+[data-theme="light"] .meeting-message { background: rgba(37,99,235,0.06); color: rgba(0,0,0,0.65); }
+[data-theme="light"] .slots-label { color: rgba(0,0,0,0.45); }
+[data-theme="light"] .slot-picker-btn { color: rgba(0,0,0,0.65); }
+[data-theme="light"] .status-badge.pending  { background: rgba(217,119,6,0.10);  color: #92400E; border-color: rgba(217,119,6,0.22); }
+[data-theme="light"] .status-badge.accepted { background: rgba(16,185,129,0.10); color: #065F46; border-color: rgba(16,185,129,0.22); }
+[data-theme="light"] .status-badge.declined { background: rgba(220,38,38,0.10);  color: #991B1B; border-color: rgba(220,38,38,0.22); }
+
+/* ── Light theme: trending-tag ───────────────────────────────────────── */
+[data-theme="light"] .trending-tag {
+  background: rgba(37,99,235,0.08);
+  color: #2563EB;
+  border-color: rgba(37,99,235,0.16);
+}
+
+/* ── Light theme: auth pages ─────────────────────────────────────────── */
+[data-theme="light"] .auth-glass-card {
+  background: rgba(255,255,255,0.92);
+  border-color: rgba(0,0,0,0.10);
+  color: #0F172A;
+}
+[data-theme="light"] .auth-title { color: #0F172A; }
+[data-theme="light"] .auth-subtitle { color: rgba(0,0,0,0.58); }
+[data-theme="light"] .auth-footer { color: rgba(0,0,0,0.58); }
+
+/* ── Light theme: profile ────────────────────────────────────────────── */
+[data-theme="light"] .profile-name { color: #0F172A; }
+[data-theme="light"] .gdpr-title { color: #0F172A; }
+[data-theme="light"] .gdpr-item strong { color: #0F172A; }
+[data-theme="light"] .notif-item strong { color: #0F172A; }
+
+/* ── Light theme: role badges (navbar & profile) ─────────────────────── */
+[data-theme="light"] .role-badge-engineer   { background: rgba(37,99,235,0.10); color: #1D4ED8; border-color: rgba(37,99,235,0.20); }
+[data-theme="light"] .role-badge-healthcare { background: rgba(5,150,105,0.10);  color: #047857; border-color: rgba(5,150,105,0.20); }
+[data-theme="light"] .role-badge-admin      { background: rgba(161,98,7,0.10);   color: #92400E; border-color: rgba(161,98,7,0.20); }
+[data-theme="light"] .navbar-role-badge.role-badge-engineer   { background: rgba(37,99,235,0.10); color: #1D4ED8; border-color: rgba(37,99,235,0.20); }
+[data-theme="light"] .navbar-role-badge.role-badge-healthcare { background: rgba(5,150,105,0.10);  color: #047857; border-color: rgba(5,150,105,0.20); }
+[data-theme="light"] .navbar-role-badge.role-badge-admin      { background: rgba(161,98,7,0.10);   color: #92400E; border-color: rgba(161,98,7,0.20); }
+
+/* ── Light theme: select options ─────────────────────────────────────── */
+[data-theme="light"] select.form-control option { background: #FFFFFF; color: #0F172A; }

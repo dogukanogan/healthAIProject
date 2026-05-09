@@ -225,3 +225,233 @@
 .navbar-logout-btn {
   white-space: nowrap;
 }
+
+/* ── Theme toggle: circular icon button ─────────────────────────────── */
+.navbar-theme-btn {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.3s;
+  flex-shrink: 0;
+  color: inherit;
+}
+.navbar-theme-btn:hover { background: rgba(255,255,255,0.15); }
+[data-theme="light"] .navbar-theme-btn {
+  background: rgba(37,99,235,0.10);
+  border-color: rgba(37,99,235,0.18);
+}
+[data-theme="light"] .navbar-theme-btn:hover { background: rgba(37,99,235,0.16); }
+@keyframes spinScale {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.25); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+.navbar-theme-btn.spinning { animation: spinScale 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+/* ── Icon button (bell) ─────────────────────────────────────────────── */
+.navbar-icon-btn {
+  position: relative;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.18s;
+  flex-shrink: 0;
+}
+.navbar-icon-btn:hover { background: rgba(255,255,255,0.15); }
+[data-theme="light"] .navbar-icon-btn {
+  background: rgba(37,99,235,0.10);
+  border-color: rgba(37,99,235,0.18);
+}
+[data-theme="light"] .navbar-icon-btn:hover { background: rgba(37,99,235,0.16); }
+
+/* ── Bell wrap ──────────────────────────────────────────────────────── */
+.navbar-bell-wrap { position: relative; }
+
+/* ── User button (avatar + name) ────────────────────────────────────── */
+.navbar-user-wrap { position: relative; }
+.navbar-user-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 4px 10px 4px 4px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+  color: inherit;
+  font-family: inherit;
+}
+.navbar-user-btn:hover {
+  background: rgba(255,255,255,0.13);
+  border-color: rgba(255,255,255,0.22);
+}
+[data-theme="light"] .navbar-user-btn {
+  background: rgba(37,99,235,0.07);
+  border-color: rgba(37,99,235,0.15);
+}
+[data-theme="light"] .navbar-user-btn:hover {
+  background: rgba(37,99,235,0.13);
+  border-color: rgba(37,99,235,0.25);
+}
+.navbar-user-caret { font-size: 9px; color: var(--gray-500); margin-left: 2px; }
+
+/* ── Dropdowns ──────────────────────────────────────────────────────── */
+.navbar-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 999;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  min-width: 240px;
+  overflow: hidden;
+  animation: fadeIn 0.18s ease;
+}
+[data-theme="light"] .navbar-dropdown {
+  background: #FFFFFF;
+  border-color: rgba(0,0,0,0.10);
+}
+
+.dropdown-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px;
+  font-size: 12px; font-weight: 800;
+  color: var(--gray-600);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--border);
+}
+[data-theme="light"] .dropdown-header { border-bottom-color: rgba(0,0,0,0.08); color: rgba(0,0,0,0.52); }
+
+.notif-count-badge {
+  background: linear-gradient(135deg, #F87171, #EF4444);
+  color: white; font-size: 10px; font-weight: 800;
+  padding: 1px 7px; border-radius: 99px;
+}
+
+.dropdown-empty {
+  padding: 20px 16px;
+  font-size: 13px; color: var(--gray-500); text-align: center;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+[data-theme="light"] .dropdown-divider { background: rgba(0,0,0,0.08); }
+
+.dropdown-item {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 10px 16px;
+  font-size: 13px; font-weight: 500;
+  color: var(--gray-700);
+  background: none; border: none;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+  text-align: left;
+}
+.dropdown-item:hover { background: rgba(255,255,255,0.06); color: var(--gray-900); }
+[data-theme="light"] .dropdown-item { color: rgba(0,0,0,0.72); }
+[data-theme="light"] .dropdown-item:hover { background: rgba(0,0,0,0.05); color: #0F172A; }
+
+.dropdown-item-toggle { justify-content: flex-start; }
+.theme-mode-label {
+  font-size: 10px; font-weight: 800;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 1px 6px; border-radius: 99px;
+}
+
+.dropdown-item-danger { color: #F87171 !important; }
+.dropdown-item-danger:hover { background: rgba(248,113,113,0.10) !important; color: #EF4444 !important; }
+[data-theme="light"] .dropdown-item-danger { color: #DC2626 !important; }
+
+/* ── Bell notification items ────────────────────────────────────────── */
+.bell-dropdown { min-width: 280px; max-height: 320px; overflow-y: auto; }
+.bell-notif-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-bottom: 1px solid var(--border);
+}
+.bell-notif-item:last-child { border-bottom: none; }
+.bell-notif-item:hover { background: rgba(56,189,248,0.07); }
+[data-theme="light"] .bell-notif-item:hover { background: rgba(37,99,235,0.05); }
+[data-theme="light"] .bell-notif-item { border-bottom-color: rgba(0,0,0,0.07); }
+
+.bell-notif-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #38BDF8; flex-shrink: 0; margin-top: 4px;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.18);
+}
+.bell-notif-text { font-size: 13px; color: var(--gray-700); line-height: 1.5; }
+.bell-notif-text strong { color: var(--gray-900); font-weight: 700; }
+[data-theme="light"] .bell-notif-text { color: rgba(0,0,0,0.70); }
+[data-theme="light"] .bell-notif-text strong { color: #0F172A; }
+.bell-notif-post { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+[data-theme="light"] .bell-notif-post { color: rgba(0,0,0,0.45); }
+
+/* ── User dropdown profile section ──────────────────────────────────── */
+.user-dropdown { min-width: 260px; }
+.user-dropdown-profile {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+[data-theme="light"] .user-dropdown-profile { border-bottom-color: rgba(0,0,0,0.08); }
+
+.user-dropdown-avatar-wrap { position: relative; flex-shrink: 0; }
+.avatar-edit-btn {
+  position: absolute; bottom: -2px; right: -4px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--surface);
+  font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 0;
+  line-height: 1;
+}
+.avatar-edit-btn:hover { transform: scale(1.15); }
+[data-theme="light"] .avatar-edit-btn { border-color: #FFFFFF; }
+
+.user-dropdown-info { flex: 1; min-width: 0; }
+.user-dropdown-name {
+  font-size: 14px; font-weight: 700;
+  color: var(--gray-900);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+[data-theme="light"] .user-dropdown-name { color: #0F172A; }
+.user-dropdown-email {
+  font-size: 11px; color: var(--gray-500);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+/* ── Role badge in navbar ───────────────────────────────────────────── */
+.navbar-role-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.navbar-role-badge.role-badge-engineer   { background: rgba(59,130,246,0.18); color: #60A5FA; border-color: rgba(59,130,246,0.28); }
+.navbar-role-badge.role-badge-healthcare { background: rgba(16,185,129,0.18); color: #34D399; border-color: rgba(16,185,129,0.28); }
+.navbar-role-badge.role-badge-admin      { background: rgba(251,191,36,0.14); color: #FCD34D; border-color: rgba(251,191,36,0.28); }

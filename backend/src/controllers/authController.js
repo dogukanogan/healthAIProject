@@ -111,4 +111,19 @@ const me = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login, logout, me };
+const changePassword = async (req, res, next) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const user = await User.findByPk(req.userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    const isMatch = await bcrypt.compare(currentPassword, user.password_hash);
+    if (!isMatch) return res.status(400).json({ message: 'Current password is incorrect.' });
+    if (!newPassword || newPassword.length < 8) return res.status(400).json({ message: 'New password must be at least 8 characters.' });
+    const salt = await bcrypt.genSalt(12);
+    user.password_hash = await bcrypt.hash(newPassword, salt);
+    await user.save();
+    res.json({ message: 'Password changed successfully.' });
+  } catch (error) { next(error); }
+};
+
+module.exports = { register, login, logout, me, changePassword };

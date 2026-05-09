@@ -14,6 +14,8 @@ export const authApi = {
   verifyEmail: (token) => apiClient.get(`/auth/verify-email?token=${token}`),
 
   me: () => apiClient.get('/auth/me'),
+
+  changePassword: (data) => apiClient.post('/auth/change-password', data),
 };
 
 // ── Posts ──────────────────────────────────────────────────────────────────
