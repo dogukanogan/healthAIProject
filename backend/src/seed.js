@@ -7,6 +7,13 @@ const Post = require('./models/Post');
 const MeetingRequest = require('./models/MeetingRequest');
 
 async function seed() {
+  // Zaten seed çalışmışsa atla
+  const existingUser = await User.findOne({ where: { email: 'dogukan@university.edu' } });
+  if (existingUser) {
+    console.log('⚠️ Seed already ran, skipping.');
+    return;
+  }
+
   const hash = await bcrypt.hash('password123', 12);
 
   const [dogukan, ayse, admin, mehmet, fatma] = await User.bulkCreate([

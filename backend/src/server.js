@@ -15,9 +15,13 @@ const PORT = process.env.PORT || 3000;
 
     // Run seed if env var is set
     if (process.env.RUN_SEED === 'true') {
-      const seed = require('./seed');
-      await seed();
-      console.log('✅ Seed completed.');
+      try {
+        const seed = require('./seed');
+        await seed();
+        console.log('✅ Seed completed.');
+      } catch (seedErr) {
+        console.warn('⚠️ Seed skipped (data may already exist):', seedErr.message);
+      }
     }
 
     // Start server
