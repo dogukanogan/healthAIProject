@@ -36,7 +36,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       await authApi.register(form);
-      setStep(2);
+      navigate('/login');
     } catch (err) {
       setError(err.message);
     } finally {
