@@ -13,6 +13,9 @@ export default function Navbar() {
 
   const [pendingCount, setPendingCount] = useState(0);
   const [pendingMeetings, setPendingMeetings] = useState([]);
+  const [readIds, setReadIds] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('healthai_notif_read') || '[]'); } catch { return []; }
+  });
   const [bellOpen, setBellOpen] = useState(false);
   const [userOpen, setUserOpen] = useState(false);
   const [spinning, setSpinning] = useState(false);
@@ -49,13 +52,24 @@ export default function Navbar() {
     setAvatar(stored || null);
   }, [user]);
 
+  // Persist readIds to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('healthai_notif_read', JSON.stringify(readIds));
+    // Recalculate unread badge
+    const unread = pendingMeetings.filter(m => !readIds.includes(m.id)).length;
+    setPendingCount(unread);
+  }, [readIds, pendingMeetings]);
+
+  const markRead    = (id) => setReadIds(prev => prev.includes(id) ? prev : [...prev, id]);
+  const markUnread  = (id) => setReadIds(prev => prev.filter(x => x !== id));
+  const markAllRead = ()   => setReadIds(pendingMeetings.map(m => m.id));
+
   // Fetch pending meeting count
   useEffect(() => {
     if (!user) return;
     const fetchCount = () => {
       meetingsApi.getAll().then(data => {
         const pending = data.filter(m => m.ownerId === user.id && m.status === 'pending');
-        setPendingCount(pending.length);
         setPendingMeetings(pending);
       }).catch(() => {});
     };
@@ -188,25 +202,50 @@ export default function Navbar() {
                 <div className="navbar-dropdown bell-dropdown">
                   <div className="dropdown-header">
                     <span>Notifications</span>
-                    {pendingCount > 0 && <span className="notif-count-badge">{pendingCount}</span>}
+                    <div style={{display:'flex',alignItems:'center',gap:6}}>
+                      {pendingCount > 0 && <span className="notif-count-badge">{pendingCount}</span>}
+                      {pendingMeetings.length > 0 && (
+                        <button className="notif-mark-all-btn" onClick={e => { e.stopPropagation(); markAllRead(); setPendingCount(0); }}>
+                          Mark all read
+                        </button>
+                      )}
+                    </div>
                   </div>
                   {pendingMeetings.length === 0 ? (
                     <div className="dropdown-empty">No pending requests</div>
                   ) : (
-                    pendingMeetings.map(m => (
-                      <div
-                        key={m.id}
-                        className="bell-notif-item"
-                        onClick={() => { setBellOpen(false); navigate(`/meetings/${m.id}`); }}
-                      >
-                        <div className="bell-notif-dot" />
-                        <div className="bell-notif-text">
-                          <strong>{m.requesterName}</strong>
-                          <span> sent a meeting request</span>
-                          <div className="bell-notif-post">{m.postTitle}</div>
+                    pendingMeetings.map(m => {
+                      const isRead = readIds.includes(m.id);
+                      return (
+                        <div
+                          key={m.id}
+                          className={`bell-notif-item${isRead ? ' bell-notif-read' : ''}`}
+                          onClick={() => {
+                            if (!isRead) { markRead(m.id); setPendingCount(c => Math.max(0, c - 1)); }
+                            setBellOpen(false);
+                            navigate(`/meetings/${m.id}`);
+                          }}
+                        >
+                          <div className={`bell-notif-dot${isRead ? ' bell-notif-dot-read' : ''}`} />
+                          <div className="bell-notif-text">
+                            <strong>{m.requesterName}</strong>
+                            <span> sent a meeting request</span>
+                            <div className="bell-notif-post">{m.postTitle}</div>
+                          </div>
+                          <button
+                            className="notif-toggle-btn"
+                            title={isRead ? 'Mark as unread' : 'Mark as read'}
+                            onClick={e => {
+                              e.stopPropagation();
+                              if (isRead) { markUnread(m.id); setPendingCount(c => c + 1); }
+                              else        { markRead(m.id);   setPendingCount(c => Math.max(0, c - 1)); }
+                            }}
+                          >
+                            {isRead ? '○' : '●'}
+                          </button>
                         </div>
-                      </div>
-                    ))
+                      );
+                    })
                   )}
                 </div>
               )}

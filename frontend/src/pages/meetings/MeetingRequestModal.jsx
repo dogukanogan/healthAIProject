@@ -101,20 +101,27 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
                 Propose at least <strong>2 time slots</strong>. The post owner will confirm one.
               </p>
               {slots.map((slot, i) => (
-                <div className="slot-input-row" key={i}>
-                  <div style={{flex:1}}>
-                    <div className="form-group">
-                      <label>Slot {i+1} — Date {i < 2 && <span className="required">*</span>}</label>
-                      <input className="form-control" type="date" value={slot.date} onChange={e => handleSlotChange(i, 'date', e.target.value)} />
-                    </div>
-                    <div className="form-group" style={{marginTop:8}}>
-                      <label>Time {i < 2 && <span className="required">*</span>}</label>
-                      <input className="form-control" type="time" value={slot.time} onChange={e => handleSlotChange(i, 'time', e.target.value)} />
-                    </div>
+                <div className="slot-row" key={i}>
+                  <div className="slot-row-label">
+                    Slot {i + 1}{i < 2 && <span className="required">*</span>}
                   </div>
-                  {slots.length > 2 && (
-                    <button className="slot-remove-btn" onClick={() => removeSlot(i)} title="Remove">✕</button>
-                  )}
+                  <div className="slot-row-inputs">
+                    <input
+                      className="slot-date-input"
+                      type="date"
+                      value={slot.date}
+                      onChange={e => handleSlotChange(i, 'date', e.target.value)}
+                    />
+                    <input
+                      className="slot-time-input"
+                      type="time"
+                      value={slot.time}
+                      onChange={e => handleSlotChange(i, 'time', e.target.value)}
+                    />
+                    {slots.length > 2 && (
+                      <button className="slot-remove-btn" onClick={() => removeSlot(i)} title="Remove">✕</button>
+                    )}
+                  </div>
                 </div>
               ))}
               <button className="slot-add-btn" onClick={addSlot}>

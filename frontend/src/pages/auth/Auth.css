@@ -17,6 +17,41 @@
   --gray-400: rgba(255,255,255,0.28) !important;
 }
 
+/* Override any light-theme selectors that may bleed into auth pages */
+.auth-always-dark .auth-fullscreen,
+.auth-always-dark .auth-page {
+  background: #060D1F !important;
+  color: #F1F5F9 !important;
+}
+
+.auth-always-dark .form-control,
+[data-theme="light"] .auth-always-dark .form-control {
+  background: rgba(255,255,255,0.07) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+  color: #F1F5F9 !important;
+}
+.auth-always-dark .form-control:focus,
+[data-theme="light"] .auth-always-dark .form-control:focus {
+  background: rgba(255,255,255,0.10) !important;
+  border-color: #38BDF8 !important;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.15) !important;
+  color: #F1F5F9 !important;
+}
+.auth-always-dark .form-control::placeholder,
+[data-theme="light"] .auth-always-dark .form-control::placeholder {
+  color: rgba(255,255,255,0.28) !important;
+}
+
+.auth-always-dark label,
+[data-theme="light"] .auth-always-dark label {
+  color: rgba(255,255,255,0.65) !important;
+}
+
+.auth-always-dark .form-group label,
+[data-theme="light"] .auth-always-dark .form-group label {
+  color: rgba(255,255,255,0.65) !important;
+}
+
 /* ══════════════════════════════════════════════════════════════════════
    AUTH  –  Full-screen dark animated background
    ══════════════════════════════════════════════════════════════════════ */

@@ -395,15 +395,43 @@
 
 .bell-notif-dot {
   width: 8px; height: 8px; border-radius: 50%;
-  background: #38BDF8; flex-shrink: 0; margin-top: 4px;
+  background: #38BDF8; flex-shrink: 0; margin-top: 5px;
   box-shadow: 0 0 0 3px rgba(56,189,248,0.18);
+  transition: background 0.2s, box-shadow 0.2s;
 }
-.bell-notif-text { font-size: 13px; color: var(--gray-700); line-height: 1.5; }
+.bell-notif-dot-read {
+  background: var(--gray-400);
+  box-shadow: none;
+}
+.bell-notif-read { opacity: 0.6; }
+.bell-notif-text { font-size: 13px; color: var(--gray-700); line-height: 1.5; flex: 1; }
 .bell-notif-text strong { color: var(--gray-900); font-weight: 700; }
 [data-theme="light"] .bell-notif-text { color: rgba(0,0,0,0.70); }
 [data-theme="light"] .bell-notif-text strong { color: #0F172A; }
 .bell-notif-post { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
 [data-theme="light"] .bell-notif-post { color: rgba(0,0,0,0.45); }
+
+/* Mark read/unread toggle inside bell item */
+.notif-toggle-btn {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.30); font-size: 11px;
+  padding: 2px 4px; border-radius: 4px; line-height: 1;
+  flex-shrink: 0; margin-top: 2px;
+  transition: color 0.15s, background 0.15s;
+}
+.notif-toggle-btn:hover { color: #38BDF8; background: rgba(56,189,248,0.10); }
+[data-theme="light"] .notif-toggle-btn { color: rgba(0,0,0,0.30); }
+[data-theme="light"] .notif-toggle-btn:hover { color: #2563EB; }
+
+/* Mark all read button in dropdown header */
+.notif-mark-all-btn {
+  background: none; border: none; cursor: pointer;
+  color: #38BDF8; font-size: 11px; font-weight: 700;
+  padding: 2px 6px; border-radius: 6px; font-family: inherit;
+  transition: background 0.15s;
+}
+.notif-mark-all-btn:hover { background: rgba(56,189,248,0.10); }
+[data-theme="light"] .notif-mark-all-btn { color: #2563EB; }
 
 /* ── User dropdown profile section ──────────────────────────────────── */
 .user-dropdown { min-width: 260px; }
