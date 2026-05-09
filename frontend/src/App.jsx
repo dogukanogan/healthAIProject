@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ToastProvider } from './context/ToastContext';
 import PrivateRoute from './router/PrivateRoute';
@@ -33,7 +33,7 @@ export default function App() {
   return (
     <ToastProvider>
     <AuthProvider>
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           {/* Public */}
           <Route path="/login"    element={<LoginPage />} />
@@ -71,7 +71,7 @@ export default function App() {
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </AuthProvider>
     </ToastProvider>
   );
