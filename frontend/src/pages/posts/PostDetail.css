@@ -151,3 +151,25 @@
   .post-detail-body   { padding: 22px 20px; }
   .post-detail-title  { font-size: 22px; }
 }
+
+/* ── Author email link ──────────────────────────────────────────────── */
+.post-detail-email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 5px 14px;
+  border-radius: 99px;
+  border: 1px solid rgba(56,189,248,0.28);
+  background: rgba(56,189,248,0.07);
+  color: #38BDF8;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.18s;
+}
+.post-detail-email-link:hover {
+  background: rgba(56,189,248,0.15);
+  border-color: #38BDF8;
+  transform: translateY(-1px);
+}

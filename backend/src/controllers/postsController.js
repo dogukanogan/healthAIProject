@@ -52,10 +52,13 @@ const getPostById = async (req, res, next) => {
     await updateExpiredPosts();
     const post = await Post.findByPk(req.params.id);
     if (!post) return res.status(404).json({ message: 'Post not found' });
-    
-    // Convert DB fields to match frontend expected names if necessary
+
     const postData = post.toJSON();
     postData.userId = postData.user_id;
+
+    // Include author email so viewers can contact them
+    const author = await User.findByPk(postData.user_id, { attributes: ['email'] });
+    if (author) postData.authorEmail = author.email;
 
     res.status(200).json(postData);
   } catch (error) {

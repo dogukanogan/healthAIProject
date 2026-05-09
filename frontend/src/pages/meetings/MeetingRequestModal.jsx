@@ -7,7 +7,7 @@ import './MeetingRequestModal.css';
 export default function MeetingRequestModal({ post, onClose, onSuccess }) {
   const { user } = useAuth();
   const toast     = useToast();
-  const [step, setStep]       = useState(1); // 1: message, 2: NDA, 3: slots
+  const [step, setStep]       = useState(1);
   const [message, setMessage] = useState('');
   const [ndaAccepted, setNda] = useState(false);
   const [slots, setSlots]     = useState(['', '']);
@@ -19,8 +19,18 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
     setSlots(updated);
   };
 
+  const addSlot = () => setSlots(s => [...s, '']);
+  const removeSlot = (i) => {
+    if (slots.length <= 2) return;
+    setSlots(s => s.filter((_, idx) => idx !== i));
+  };
+
   const handleSubmit = async () => {
-    if (!slots[0]) { toast.warning('Please propose at least one time slot.'); return; }
+    const filled = slots.filter(Boolean);
+    if (filled.length < 2) {
+      toast.warning('Please propose at least 2 time slots.');
+      return;
+    }
     setLoading(true);
     try {
       await meetingsApi.create({
@@ -32,7 +42,7 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
         ownerName: post.authorName,
         message,
         ndaAccepted,
-        proposedSlots: slots.filter(Boolean),
+        proposedSlots: filled,
       });
       toast.success('Meeting request sent!');
       onSuccess();
@@ -66,7 +76,9 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
               <p className="modal-subtitle">Introduce yourself and explain your interest in <strong>{post.title}</strong>.</p>
               <div className="form-group">
                 <label>Message</label>
-                <textarea className="form-control" rows={5} placeholder="I am interested in collaborating because..." value={message} onChange={e => setMessage(e.target.value)} />
+                <textarea className="form-control" rows={5}
+                  placeholder="I am interested in collaborating because..."
+                  value={message} onChange={e => setMessage(e.target.value)} />
               </div>
             </div>
           )}
@@ -74,8 +86,8 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
           {step === 2 && (
             <div className="nda-section">
               <div className="nda-box">
-                <h4>Non-Disclosure Agreement</h4>
-                <p>By proceeding, you agree that any information shared during or after this meeting is confidential and may not be disclosed to third parties without prior written consent. This platform facilitates first contact only. All intellectual property shared remains the property of the original owner.</p>
+                <h4>🔒 Non-Disclosure Agreement</h4>
+                <p>By proceeding, you agree that any information shared during or after this meeting is confidential and may not be disclosed to third parties without prior written consent. All intellectual property shared remains the property of the original owner.</p>
               </div>
               <label className="nda-check">
                 <input type="checkbox" checked={ndaAccepted} onChange={e => setNda(e.target.checked)} />
@@ -86,13 +98,31 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
 
           {step === 3 && (
             <div>
-              <p className="modal-subtitle">Propose up to 2 available time slots. The post owner will confirm one.</p>
+              <p className="modal-subtitle">
+                Propose at least <strong>2 time slots</strong>. The post owner will confirm one.
+              </p>
               {slots.map((slot, i) => (
-                <div className="form-group" key={i}>
-                  <label>Time Slot {i + 1} {i === 0 && <span className="required">*</span>}</label>
-                  <input className="form-control" type="datetime-local" value={slot} onChange={e => handleSlotChange(i, e.target.value)} />
+                <div className="slot-input-row" key={i}>
+                  <div className="form-group" style={{ flex: 1 }}>
+                    <label>
+                      Slot {i + 1}
+                      {i < 2 && <span className="required"> *</span>}
+                    </label>
+                    <input
+                      className="form-control"
+                      type="datetime-local"
+                      value={slot}
+                      onChange={e => handleSlotChange(i, e.target.value)}
+                    />
+                  </div>
+                  {slots.length > 2 && (
+                    <button className="slot-remove-btn" onClick={() => removeSlot(i)} title="Remove slot">✕</button>
+                  )}
                 </div>
               ))}
+              <button className="slot-add-btn" onClick={addSlot}>
+                + Add another time slot
+              </button>
             </div>
           )}
         </div>
@@ -104,11 +134,11 @@ export default function MeetingRequestModal({ post, onClose, onSuccess }) {
             <button className="btn btn-primary" onClick={() => {
               if (step === 2 && !ndaAccepted) { toast.warning('You must accept the NDA to continue.'); return; }
               setStep(s => s + 1);
-            }}>Next</button>
+            }}>Next →</button>
           )}
           {step === 3 && (
             <button className="btn btn-primary" onClick={handleSubmit} disabled={loading}>
-              {loading ? 'Sending...' : 'Send Meeting Request'}
+              {loading ? 'Sending…' : 'Send Request 🚀'}
             </button>
           )}
         </div>

@@ -61,6 +61,11 @@ export default function PostDetailPage() {
               <span className="dot">·</span>
               <span>Posted {post.createdAt}</span>
             </div>
+            {!isOwner && post.authorEmail && (
+              <a href={`mailto:${post.authorEmail}`} className="post-detail-email-link">
+                ✉️ Contact: {post.authorEmail}
+              </a>
+            )}
           </div>
 
           {isOwner && (
