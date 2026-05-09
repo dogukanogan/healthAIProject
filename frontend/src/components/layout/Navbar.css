@@ -44,7 +44,7 @@
 .brand-logo-text {
   font-size: 14px;
   font-weight: 900;
-  color: #fff;
+  color: #fff !important;
   letter-spacing: 0.5px;
   font-family: inherit;
   line-height: 1;
