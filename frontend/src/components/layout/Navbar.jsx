@@ -1,5 +1,6 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { meetingsApi } from '../../services';
@@ -142,7 +143,69 @@ export default function Navbar() {
         </div>
   );
 
+  const drawerPortal = user ? ReactDOM.createPortal(
+    <>
+      <div
+        className={`drawer-overlay${drawerOpen ? ' open' : ''}`}
+        onClick={() => setDrawerOpen(false)}
+      />
+      <div className={`navbar-drawer${drawerOpen ? ' open' : ''}`}>
+        <div className="drawer-header">
+          <div className="brand-logo" style={{ width: 40, height: 40 }}>
+            <span className="brand-logo-text">HAI</span>
+          </div>
+          <span className="drawer-title">Health<span>AI</span></span>
+          <button className="drawer-close" onClick={() => setDrawerOpen(false)}>✕</button>
+        </div>
+
+        <div className="drawer-user">
+          <AvatarCircle size={44} fontSize={18} />
+          <div>
+            <div className="drawer-user-name">{user.name}</div>
+            <div className="drawer-user-email">{user.email}</div>
+          </div>
+        </div>
+
+        <nav className="drawer-links">
+          <Link to="/dashboard" className={`drawer-link${location.pathname.startsWith('/dashboard') ? ' active' : ''}`}>
+            <span>🏠</span>Dashboard
+          </Link>
+          <Link to="/posts" className={`drawer-link${location.pathname.startsWith('/posts') ? ' active' : ''}`}>
+            <span>📋</span>Posts
+          </Link>
+          <Link to="/meetings" className={`drawer-link${location.pathname.startsWith('/meetings') ? ' active' : ''}`}>
+            <span>🤝</span>Meetings
+            {pendingMeetings.length > 0 && (
+              <span className="drawer-badge">{pendingMeetings.length}</span>
+            )}
+          </Link>
+          {isAdmin && (
+            <Link to="/admin" className={`drawer-link${location.pathname.startsWith('/admin') ? ' active' : ''}`}>
+              <span>🛡️</span>Admin
+            </Link>
+          )}
+          <Link to="/profile" className={`drawer-link${location.pathname.startsWith('/profile') ? ' active' : ''}`}>
+            <span>👤</span>My Profile
+          </Link>
+        </nav>
+
+        <div className="drawer-footer">
+          <button className="drawer-theme-btn" onClick={handleThemeToggle}>
+            <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
+            <span>{theme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
+          </button>
+          <button className="drawer-logout-btn" onClick={handleLogout}>
+            <span>🚪</span>Logout
+          </button>
+        </div>
+      </div>
+    </>,
+    document.body
+  ) : null;
+
   return (
+    <>
+    {drawerPortal}
     <nav className="navbar">
       <div className="navbar-inner">
 
@@ -188,68 +251,6 @@ export default function Navbar() {
               </Link>
             )}
           </div>
-        )}
-
-        {/* Mobile Drawer */}
-        {user && (
-          <>
-            {/* Overlay */}
-            <div
-              className={`drawer-overlay${drawerOpen ? ' open' : ''}`}
-              onClick={() => setDrawerOpen(false)}
-            />
-            {/* Drawer */}
-            <div className={`navbar-drawer${drawerOpen ? ' open' : ''}`}>
-              <div className="drawer-header">
-                <div className="brand-logo" style={{ width: 40, height: 40 }}>
-                  <span className="brand-logo-text">HAI</span>
-                </div>
-                <span className="drawer-title">Health<span>AI</span></span>
-                <button className="drawer-close" onClick={() => setDrawerOpen(false)}>✕</button>
-              </div>
-
-              <div className="drawer-user">
-                <AvatarCircle size={44} fontSize={18} />
-                <div>
-                  <div className="drawer-user-name">{user.name}</div>
-                  <div className="drawer-user-email">{user.email}</div>
-                </div>
-              </div>
-
-              <nav className="drawer-links">
-                <Link to="/dashboard" className={`drawer-link${location.pathname.startsWith('/dashboard') ? ' active' : ''}`}>
-                  <span>🏠</span>Dashboard
-                </Link>
-                <Link to="/posts" className={`drawer-link${location.pathname.startsWith('/posts') ? ' active' : ''}`}>
-                  <span>📋</span>Posts
-                </Link>
-                <Link to="/meetings" className={`drawer-link${location.pathname.startsWith('/meetings') ? ' active' : ''}`}>
-                  <span>🤝</span>Meetings
-                  {pendingMeetings.length > 0 && (
-                    <span className="drawer-badge">{pendingMeetings.length}</span>
-                  )}
-                </Link>
-                {isAdmin && (
-                  <Link to="/admin" className={`drawer-link${location.pathname.startsWith('/admin') ? ' active' : ''}`}>
-                    <span>🛡️</span>Admin
-                  </Link>
-                )}
-                <Link to="/profile" className={`drawer-link${location.pathname.startsWith('/profile') ? ' active' : ''}`}>
-                  <span>👤</span>My Profile
-                </Link>
-              </nav>
-
-              <div className="drawer-footer">
-                <button className="drawer-theme-btn" onClick={handleThemeToggle}>
-                  <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
-                  <span>{theme === 'dark' ? 'Dark Mode' : 'Light Mode'}</span>
-                </button>
-                <button className="drawer-logout-btn" onClick={handleLogout}>
-                  <span>🚪</span>Logout
-                </button>
-              </div>
-            </div>
-          </>
         )}
 
         {/* Right side */}
@@ -414,5 +415,6 @@ export default function Navbar() {
         )}
       </div>
     </nav>
+    </>
   );
 }
