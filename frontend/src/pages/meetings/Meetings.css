@@ -166,11 +166,17 @@
   display: flex; align-items: center; gap: 8px;
 }
 .meetings-pending-badge {
-  background: linear-gradient(135deg, #F87171, #EF4444);
-  color: white; font-size: 12px; font-weight: 800;
+  background: rgba(251,191,36,0.12);
+  color: #FCD34D;
+  border: 1px solid rgba(251,191,36,0.28);
+  font-size: 12px; font-weight: 700;
   padding: 4px 14px; border-radius: 99px;
-  box-shadow: 0 4px 12px rgba(239,68,68,0.35);
   animation: badgePop 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+[data-theme="light"] .meetings-pending-badge {
+  background: rgba(251,191,36,0.10);
+  color: #B45309;
+  border-color: rgba(251,191,36,0.35);
 }
 
 /* ── Parties ────────────────────────────────────────────────────────── */
@@ -223,7 +229,7 @@
   }
 }
 .meetings-list-col { min-width: 0; }
-.meetings-detail-panel { position: sticky; top: 76px; }
+.meetings-detail-panel { position: sticky; top: 84px; }
 
 /* ── Meeting detail card ─────────────────────────────────────────── */
 .meeting-detail-card {
@@ -270,10 +276,11 @@
 
 /* ── Slot Picker ────────────────────────────────────────────────────── */
 .meeting-slot-picker {
-  background: rgba(56,189,248,0.05);
+  background: rgba(56,189,248,0.04);
   border: 1px solid rgba(56,189,248,0.14);
   border-radius: var(--radius-lg);
   padding: 14px 16px;
+  margin-top: 14px;
 }
 .slot-picker-label {
   font-size: 11px; font-weight: 800;
@@ -281,22 +288,39 @@
   letter-spacing: 0.06em; display: block; margin-bottom: 10px;
 }
 .slot-picker-options { display: flex; flex-wrap: wrap; gap: 8px; }
-.slot-picker-btn {
-  padding: 7px 16px;
-  border-radius: 99px;
-  border: 1px solid rgba(56,189,248,0.25);
-  background: rgba(56,189,248,0.08);
-  color: var(--gray-600);
-  font-size: 12px; font-weight: 600;
-  cursor: pointer; transition: all 0.18s;
+
+/* Slot picker chips — same card style as slot-chip but clickable */
+.slot-picker-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: rgba(59,130,246,0.08);
+  border: 1px solid rgba(59,130,246,0.20);
+  border-radius: 10px;
+  padding: 8px 14px;
+  min-width: 110px;
+  cursor: pointer;
   font-family: inherit;
+  text-align: left;
+  transition: all 0.18s;
 }
-.slot-picker-btn:hover {
-  border-color: #38BDF8; color: #38BDF8;
+.slot-picker-chip:hover {
+  border-color: #38BDF8;
   background: rgba(56,189,248,0.14);
+  transform: translateY(-1px);
 }
-.slot-picker-btn.selected {
-  border-color: #38BDF8; color: #38BDF8;
+.slot-picker-chip.selected {
+  border-color: #38BDF8;
   background: rgba(56,189,248,0.18);
-  box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.14);
 }
+
+/* Confirmed slot chip variant */
+.slot-chip-confirmed {
+  background: rgba(16,185,129,0.10) !important;
+  border-color: rgba(16,185,129,0.25) !important;
+}
+.slot-chip-confirmed .slot-chip-time { color: #34D399 !important; }
+
+/* Meeting actions row */
+.meeting-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }

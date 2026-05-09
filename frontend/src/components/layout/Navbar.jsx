@@ -131,6 +131,7 @@ export default function Navbar() {
             color: 'white', fontSize, fontWeight: 800,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             flexShrink: 0, boxShadow: '0 2px 8px rgba(37,99,235,0.45)',
+            lineHeight: 1, userSelect: 'none',
           }}
         >
           {user?.name?.charAt(0).toUpperCase()}

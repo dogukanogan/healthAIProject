@@ -259,11 +259,11 @@ main {
 }
 
 .page-title {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 800;
   color: var(--gray-900);
   letter-spacing: -0.02em;
-  background: linear-gradient(90deg, #F1F5F9, #94A3B8);
+  background: linear-gradient(90deg, #38BDF8, #818CF8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -389,7 +389,7 @@ main {
 [data-theme="light"] .navbar-username { color: rgba(0,0,0,0.78); }
 
 [data-theme="light"] .page-title {
-  background: linear-gradient(90deg, #0F172A, #2563EB);
+  background: linear-gradient(90deg, #2563EB, #38BDF8);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -487,7 +487,7 @@ main {
 
 /* ── Comprehensive Light Theme Overrides ────────────────────────────── */
 [data-theme="light"] .page-title {
-  background: linear-gradient(90deg, #0F172A, #1D4ED8) !important;
+  background: linear-gradient(90deg, #2563EB, #38BDF8) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;

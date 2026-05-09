@@ -3,19 +3,19 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(6,13,31,0.88);
+  background: rgba(6,13,31,0.90);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255,255,255,0.07);
-  height: 60px;
+  height: 68px;
   display: flex;
   align-items: center;
 }
 
 .navbar-inner {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 28px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -26,24 +26,38 @@
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   text-decoration: none;
-  margin-right: 36px;
+  margin-right: 40px;
   flex-shrink: 0;
 }
 
 .brand-logo {
-  width: 34px; height: 34px;
+  width: 40px; height: 40px;
   background: linear-gradient(135deg, #2563EB, #38BDF8);
-  border-radius: 10px;
+  border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-  box-shadow: 0 4px 12px rgba(37,99,235,0.50);
+  box-shadow: 0 4px 14px rgba(37,99,235,0.55);
   flex-shrink: 0;
 }
 
+.brand-logo-text {
+  font-size: 14px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.5px;
+  font-family: inherit;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
 .brand-name {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 800;
   color: white;
   letter-spacing: -0.03em;
@@ -62,26 +76,26 @@
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 13px;
+  gap: 7px;
+  padding: 8px 15px;
   border-radius: 10px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  color: rgba(255,255,255,0.48);
+  color: rgba(255,255,255,0.50);
   text-decoration: none;
   transition: var(--transition-fast);
   white-space: nowrap;
 }
 .nav-link:hover {
-  color: rgba(255,255,255,0.88);
+  color: rgba(255,255,255,0.90);
   background: rgba(255,255,255,0.07);
 }
 .nav-link.active {
   color: #38BDF8;
-  background: rgba(56,189,248,0.10);
+  background: rgba(56,189,248,0.12);
 }
 
-.nav-link-icon { font-size: 14px; }
+.nav-link-icon { font-size: 15px; }
 
 /* ── Right side ────────────────────────────────────────────────────── */
 .navbar-right {
@@ -127,9 +141,9 @@
 .navbar-avatar:hover { transform: scale(1.08); }
 
 .navbar-username {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.82);
 }
 
 /* Logout */
@@ -231,11 +245,11 @@
 
 /* ── Theme toggle: circular icon button ─────────────────────────────── */
 .navbar-theme-btn {
-  width: 34px; height: 34px;
+  width: 38px; height: 38px;
   border-radius: 50%;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.14);
-  font-size: 15px;
+  font-size: 17px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   transition: background 0.2s, transform 0.3s;
@@ -258,11 +272,11 @@
 /* ── Icon button (bell) ─────────────────────────────────────────────── */
 .navbar-icon-btn {
   position: relative;
-  width: 34px; height: 34px;
+  width: 38px; height: 38px;
   border-radius: 50%;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.14);
-  font-size: 15px;
+  font-size: 17px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
   transition: background 0.18s;
@@ -281,8 +295,8 @@
 /* ── User button (avatar + name) ────────────────────────────────────── */
 .navbar-user-wrap { position: relative; }
 .navbar-user-btn {
-  display: flex; align-items: center; gap: 8px;
-  padding: 4px 10px 4px 4px;
+  display: flex; align-items: center; gap: 9px;
+  padding: 5px 12px 5px 5px;
   border-radius: 99px;
   background: rgba(255,255,255,0.07);
   border: 1px solid rgba(255,255,255,0.12);

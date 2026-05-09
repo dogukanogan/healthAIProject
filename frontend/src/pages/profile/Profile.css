@@ -51,6 +51,8 @@
   font-size: 32px; font-weight: 800;
   flex-shrink: 0;
   box-shadow: 0 4px 16px rgba(37,99,235,0.40);
+  line-height: 1;
+  user-select: none;
 }
 
 .profile-name {

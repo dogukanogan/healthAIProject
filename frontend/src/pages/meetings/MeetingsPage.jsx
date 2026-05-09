@@ -236,10 +236,21 @@ function MeetingDetail({ m, user, selectedSlot, onSlotChange, onRespond, onClose
       {m.proposedSlots?.length > 0 && (
         <div className="meeting-detail-section">
           <span className="meeting-detail-label">Proposed Slots</span>
-          <div className="slots-list" style={{ marginTop: 6 }}>
-            {m.proposedSlots.map((slot, i) => (
-              <span key={i} className="slot-tag">{formatDateTime(slot)}</span>
-            ))}
+          <div className="slots-list" style={{ marginTop: 8 }}>
+            {m.proposedSlots.map((slot, i) => {
+              const normalized = (slot || '').replace('T', ' ');
+              const si = normalized.indexOf(' ');
+              const dp = si > -1 ? normalized.slice(0, si) : normalized;
+              const tp = si > -1 ? normalized.slice(si + 1, si + 6) : '';
+              const [y, mo, d] = dp.split('-');
+              const df = d && mo && y ? `${d}/${mo}/${y}` : dp;
+              return (
+                <div key={i} className="slot-chip">
+                  <span className="slot-chip-date">📅 {df}</span>
+                  <span className="slot-chip-time">🕐 {tp || '—'}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -248,34 +259,56 @@ function MeetingDetail({ m, user, selectedSlot, onSlotChange, onRespond, onClose
       {m.confirmedSlot && (
         <div className="meeting-detail-section">
           <span className="meeting-detail-label">Confirmed Slot</span>
-          <div className="meeting-confirmed">{formatDateTime(m.confirmedSlot)}</div>
+          {(() => {
+            const normalized = (m.confirmedSlot || '').replace('T', ' ');
+            const si = normalized.indexOf(' ');
+            const dp = si > -1 ? normalized.slice(0, si) : normalized;
+            const tp = si > -1 ? normalized.slice(si + 1, si + 6) : '';
+            const [y, mo, d] = dp.split('-');
+            const df = d && mo && y ? `${d}/${mo}/${y}` : dp;
+            return (
+              <div className="slot-chip slot-chip-confirmed">
+                <span className="slot-chip-date">📅 {df}</span>
+                <span className="slot-chip-time">🕐 {tp || '—'}</span>
+              </div>
+            );
+          })()}
         </div>
       )}
 
       {/* Owner actions */}
       {isOwner && isPending && (
         <>
-          <div className="meeting-slot-picker" style={{ marginTop: 12 }}>
+          <div className="meeting-slot-picker">
             <label className="slot-picker-label">Select a slot to confirm:</label>
             <div className="slot-picker-options">
-              {m.proposedSlots?.map((slot, i) => (
-                <button
-                  key={i}
-                  className={`slot-picker-btn ${selectedSlot === slot ? 'selected' : ''}`}
-                  onClick={() => onSlotChange && onSlotChange(slot)}
-                >
-                  {formatDateTime(slot)}
-                </button>
-              ))}
+              {m.proposedSlots?.map((slot, i) => {
+                const normalized = (slot || '').replace('T', ' ');
+                const si = normalized.indexOf(' ');
+                const dp = si > -1 ? normalized.slice(0, si) : normalized;
+                const tp = si > -1 ? normalized.slice(si + 1, si + 6) : '';
+                const [y, mo, d] = dp.split('-');
+                const df = d && mo && y ? `${d}/${mo}/${y}` : dp;
+                return (
+                  <button
+                    key={i}
+                    className={`slot-picker-chip ${selectedSlot === slot ? 'selected' : ''}`}
+                    onClick={() => onSlotChange && onSlotChange(slot)}
+                  >
+                    <span className="slot-chip-date">📅 {df}</span>
+                    <span className="slot-chip-time">🕐 {tp || '—'}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
-          <div className="meeting-actions" style={{ marginTop: 12 }}>
+          <div className="meeting-actions">
             <button
               className="btn btn-success btn-sm"
               onClick={() => onRespond(m.id, 'accepted')}
               disabled={!selectedSlot}
             >
-              ✓ Accept
+              ✓ Accept Meeting
             </button>
             <button className="btn btn-danger btn-sm" onClick={() => onRespond(m.id, 'declined')}>
               ✕ Decline
