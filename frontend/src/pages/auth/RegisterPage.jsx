@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../../services';
 import './Auth.css';
@@ -15,6 +15,14 @@ export default function RegisterPage() {
   const [form, setForm]     = useState({ name: '', email: '', password: '', confirm: '', role: '' });
   const [error, setError]   = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Force dark theme on html element while on auth page
+  useEffect(() => {
+    const root = document.documentElement;
+    const prev = root.getAttribute('data-theme');
+    root.setAttribute('data-theme', 'dark');
+    return () => { if (prev) root.setAttribute('data-theme', prev); else root.removeAttribute('data-theme'); };
+  }, []);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   const selectRole   = (role) => setForm({ ...form, role });

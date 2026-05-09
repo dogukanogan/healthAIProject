@@ -37,6 +37,14 @@ export default function LoginPage() {
   const [forgotSent, setForgotSent]   = useState(false);
   const [forgotLoading, setForgotLoading] = useState(false);
 
+  // Force dark theme on html element while on auth page
+  useEffect(() => {
+    const root = document.documentElement;
+    const prev = root.getAttribute('data-theme');
+    root.setAttribute('data-theme', 'dark');
+    return () => { if (prev) root.setAttribute('data-theme', prev); else root.removeAttribute('data-theme'); };
+  }, []);
+
   useEffect(() => {
     const t = setInterval(() => setSlide(p => (p + 1) % SLIDES.length), 3400);
     return () => clearInterval(t);
