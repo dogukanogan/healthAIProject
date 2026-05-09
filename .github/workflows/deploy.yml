@@ -39,7 +39,8 @@ jobs:
       - name: Build
         working-directory: frontend
         env:
-          VITE_USE_MOCK: 'true'
+          VITE_USE_MOCK: 'false'
+          VITE_API_URL: 'https://healthai-backend-67ta.onrender.com/api'
         run: npm run build
 
       - name: Copy index.html to 404.html
