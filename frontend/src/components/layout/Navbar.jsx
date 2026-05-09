@@ -144,10 +144,7 @@ export default function Navbar() {
         {/* Brand */}
         <Link to="/dashboard" className="navbar-brand">
           <div className="brand-logo">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L13.5 8.5H20L14.5 12.5L16.5 19L12 15L7.5 19L9.5 12.5L4 8.5H10.5L12 2Z" fill="white" opacity="0.9"/>
-              <circle cx="12" cy="12" r="3" fill="#38BDF8"/>
-            </svg>
+            <span className="brand-logo-text">HAI</span>
           </div>
           <span className="brand-name">Health<span>AI</span></span>
         </Link>
