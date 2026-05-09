@@ -13,6 +13,13 @@ const PORT = process.env.PORT || 3000;
     await sequelize.sync({ alter: true });
     console.log('✅ Database models synchronized.');
 
+    // Run seed if env var is set
+    if (process.env.RUN_SEED === 'true') {
+      const seed = require('./seed');
+      await seed();
+      console.log('✅ Seed completed.');
+    }
+
     // Start server
     app.listen(PORT, () => {
       console.log(`🚀 Backend running on http://localhost:${PORT}`);

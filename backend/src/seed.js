@@ -7,10 +7,6 @@ const Post = require('./models/Post');
 const MeetingRequest = require('./models/MeetingRequest');
 
 async function seed() {
-  await sequelize.authenticate();
-  await sequelize.sync({ force: true }); // tablolar varsa sıfırlar
-
-  // ── Users ──────────────────────────────────────────────────────────────
   const hash = await bcrypt.hash('password123', 12);
 
   const [dogukan, ayse, admin, mehmet, fatma] = await User.bulkCreate([
@@ -21,7 +17,6 @@ async function seed() {
     { name: 'Dr. Fatma Yilmaz',   email: 'fatma@clinic.edu',       password_hash: hash, role: 'healthcare',  verified: true,  suspended: false },
   ], { returning: true });
 
-  // ── Posts ──────────────────────────────────────────────────────────────
   const [p1, p2, p3, p4, p5] = await Post.bulkCreate([
     {
       user_id: dogukan.id, authorName: 'Dogukan Ogan', role: 'engineer',
@@ -85,7 +80,6 @@ async function seed() {
     },
   ], { returning: true });
 
-  // ── Meeting Request ────────────────────────────────────────────────────
   await MeetingRequest.create({
     post_id: p3.id, postTitle: p3.title,
     requester_id: ayse.id,  requesterName: 'Dr. Ayse Kaya',
@@ -97,11 +91,18 @@ async function seed() {
     status: 'accepted',
   });
 
-  console.log('✅ Seed complete.');
-  console.log('   Users : 5  (password: password123)');
-  console.log('   Posts : 5');
-  console.log('   Meetings: 1');
-  await sequelize.close();
+  console.log('✅ Seed complete. Users: 5 | Posts: 5 | Meetings: 1');
 }
 
-seed().catch(e => { console.error('Seed failed:', e.message); process.exit(1); });
+// Doğrudan çalıştırılırsa (node src/seed.js)
+if (require.main === module) {
+  (async () => {
+    await sequelize.authenticate();
+    await sequelize.sync({ force: true });
+    await seed();
+    await sequelize.close();
+    process.exit(0);
+  })().catch(e => { console.error('Seed failed:', e.message); process.exit(1); });
+}
+
+module.exports = seed;
