@@ -33,7 +33,7 @@ export default function App() {
   return (
     <ToastProvider>
     <AuthProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           {/* Public */}
           <Route path="/login"    element={<LoginPage />} />
