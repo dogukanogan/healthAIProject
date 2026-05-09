@@ -18,8 +18,8 @@ const User = sequelize.define('User', {
     validate: {
       isEmail: true,
       isEdu(value) {
-        if (!value.endsWith('.edu')) {
-          throw new Error('Only institutional .edu email addresses are allowed.');
+        if (!value.includes('.edu')) {
+          throw new Error('Only institutional email addresses are allowed (e.g. .edu, .edu.tr).');
         }
       }
     }

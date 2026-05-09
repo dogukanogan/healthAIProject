@@ -21,7 +21,7 @@ export default function RegisterPage() {
 
   const validate = () => {
     if (!form.name.trim())               return 'Full name is required.';
-    if (!form.email.endsWith('.edu'))    return 'Only institutional .edu email addresses are allowed.';
+    if (!form.email.includes('.edu'))    return 'Only institutional email addresses are allowed (e.g. .edu, .edu.tr).';
     if (form.password.length < 8)        return 'Password must be at least 8 characters.';
     if (form.password !== form.confirm)  return 'Passwords do not match.';
     if (!form.role)                      return 'Please select a role.';
@@ -194,8 +194,8 @@ export default function RegisterPage() {
             </div>
 
             <div className="form-group">
-              <label>Institutional Email (.edu)</label>
-              <input className="form-control" type="email" name="email" placeholder="you@university.edu" value={form.email} onChange={handleChange} required />
+              <label>Institutional Email (.edu / .edu.tr)</label>
+              <input className="form-control" type="email" name="email" placeholder="you@student.university.edu.tr" value={form.email} onChange={handleChange} required />
             </div>
 
             <div className="form-group">

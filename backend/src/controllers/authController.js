@@ -12,8 +12,8 @@ const register = async (req, res, next) => {
       return res.status(400).json({ message: 'Name, email, password and role are required.' });
     }
 
-    if (!normalizedEmail.endsWith('.edu')) {
-      return res.status(400).json({ message: 'Only institutional .edu email addresses are allowed.' });
+    if (!normalizedEmail.includes('.edu')) {
+      return res.status(400).json({ message: 'Only institutional email addresses are allowed (e.g. .edu, .edu.tr).' });
     }
 
     if (!VALID_ROLES.includes(role)) {

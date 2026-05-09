@@ -43,8 +43,28 @@ jobs:
           VITE_API_URL: 'https://healthai-backend-67ta.onrender.com/api'
         run: npm run build
 
-      - name: Copy index.html to 404.html
-        run: cp frontend/dist/index.html frontend/dist/404.html
+      - name: Create 404.html for SPA routing
+        run: |
+          cat > frontend/dist/404.html << 'HTMLEOF'
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <script>
+                var seg = 1;
+                var l = window.location;
+                l.replace(
+                  l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+                  l.pathname.split('/').slice(0, 1 + seg).join('/') + '/?p=' +
+                  encodeURIComponent(l.pathname.slice(1).split('/').slice(seg).join('/')) +
+                  (l.search ? '&q=' + encodeURIComponent(l.search.slice(1)) : '') +
+                  l.hash
+                );
+              </script>
+            </head>
+            <body></body>
+          </html>
+          HTMLEOF
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

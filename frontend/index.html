@@ -3,6 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      // Restore path from 404.html redirect
+      (function () {
+        var p = new URLSearchParams(window.location.search).get('p');
+        if (p) {
+          var base = '/healthAIProject';
+          var q = new URLSearchParams(window.location.search).get('q');
+          window.history.replaceState(null, null, base + '/' + decodeURIComponent(p) + (q ? '?' + decodeURIComponent(q) : '') + window.location.hash);
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HealthAI — Co-Creation Platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
