@@ -158,8 +158,11 @@ export default function Navbar() {
             <Link to="/posts" className={isActive('/posts')}>
               <span className="nav-link-icon">📋</span>Posts
             </Link>
-            <Link to="/meetings" className={isActive('/meetings')}>
+            <Link to="/meetings" className={isActive('/meetings')} style={{ position: 'relative' }}>
               <span className="nav-link-icon">🤝</span>Meetings
+              {pendingMeetings.length > 0 && (
+                <span className="nav-meetings-badge">{pendingMeetings.length}</span>
+              )}
             </Link>
             {isAdmin && (
               <Link to="/admin" className={isActive('/admin')}>

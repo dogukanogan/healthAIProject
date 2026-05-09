@@ -46,12 +46,14 @@ export default function MeetingsPage() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1 className="page-title">Meetings</h1>
-        {pending.length > 0 && (
-          <span className="meetings-pending-badge">
-            {pending.length} pending
-          </span>
-        )}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <h1 className="page-title">Meetings</h1>
+          {pending.length > 0 && (
+            <span className="meetings-pending-badge">
+              {pending.length} pending
+            </span>
+          )}
+        </div>
       </div>
 
       <div className="meetings-page-layout">
