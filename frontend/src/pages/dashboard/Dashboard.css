@@ -162,3 +162,13 @@
   .dashboard-hero-stats { display: none; }
   .dashboard-hero-text h1 { font-size: 22px; }
 }
+
+@media (max-width: 480px) {
+  .dashboard-hero { padding: 22px 16px; gap: 16px; border-radius: var(--radius-lg); }
+  .dashboard-hero-text h1 { font-size: 19px; }
+  .dashboard-hero-text p  { font-size: 13px; }
+  .dashboard-hero-actions { flex-direction: column; }
+  .dashboard-hero-actions .btn { width: 100%; justify-content: center; }
+  .posts-grid { grid-template-columns: 1fr; }
+  .dashboard-section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+}

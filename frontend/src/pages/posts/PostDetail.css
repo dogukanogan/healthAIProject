@@ -173,3 +173,18 @@
   border-color: #38BDF8;
   transform: translateY(-1px);
 }
+
+@media (max-width: 768px) {
+  .post-detail-header { padding: 20px 16px; }
+  .post-detail-body   { padding: 20px 16px; }
+  .post-detail-title  { font-size: 20px; }
+  .post-detail-owner-actions { flex-wrap: wrap; }
+}
+
+@media (max-width: 480px) {
+  .post-detail-header { padding: 16px; flex-direction: column; align-items: flex-start; }
+  .post-detail-title  { font-size: 18px; }
+  .post-detail-grid   { grid-template-columns: 1fr; }
+  .post-detail-owner-actions { width: 100%; }
+  .post-detail-owner-actions .btn { flex: 1; }
+}

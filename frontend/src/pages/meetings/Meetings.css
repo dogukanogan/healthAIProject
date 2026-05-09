@@ -324,3 +324,20 @@
 
 /* Meeting actions row */
 .meeting-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+
+@media (max-width: 768px) {
+  .meeting-card { padding: 16px; }
+  .meeting-card-header { flex-wrap: wrap; gap: 10px; }
+  .meeting-post-title { font-size: 14px; }
+  .meeting-parties { font-size: 12px; flex-wrap: wrap; }
+  .meetings-detail-panel { position: static; }
+}
+
+@media (max-width: 480px) {
+  .meeting-card { padding: 14px; gap: 10px; }
+  .slot-chip { min-width: 100px; padding: 6px 10px; }
+  .slot-chip-date, .slot-chip-time { font-size: 12px; }
+  .slot-picker-chip { min-width: 100px; padding: 6px 10px; }
+  .meeting-detail-card { padding: 16px; }
+  .meeting-actions .btn { flex: 1; }
+}

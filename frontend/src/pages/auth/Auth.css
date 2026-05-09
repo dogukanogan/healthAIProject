@@ -562,3 +562,11 @@
   .auth-pill { display: none; }
   .auth-panel-right { padding: 24px 16px; }
 }
+
+@media (max-width: 480px) {
+  .auth-center { padding: 20px 14px; gap: 20px; }
+  .auth-glass-card { padding: 28px 20px; border-radius: var(--radius-lg); }
+  .auth-card { padding: 28px 20px; }
+  .auth-title { font-size: 22px; }
+  .role-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+}
